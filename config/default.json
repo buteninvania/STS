@@ -1,0 +1,5 @@
+{
+  "port": 5000,
+  "jwtSecret": "butinproject",
+  "mongoUri": "mongodb+srv://butenin:12qwaszx@desktop.tzbey.mongodb.net/home?retryWrites=true&w=majority"
+}

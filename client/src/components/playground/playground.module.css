@@ -1,0 +1,47 @@
+.wrapper {
+    position: relative;
+    padding: 30px;
+}
+
+.header {
+    text-align: center;
+    font-family: sans-serif;
+    color: rgba(37, 37, 37, 0.46);
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.42);
+    font-size: 30px;
+}
+
+.list {
+    display: flex;
+    position: relative;
+}
+
+.item {
+    width: 20%;
+    height: 200px;
+    border: 1px solid #111111;
+    padding: 10px;
+    margin: 3px;
+    position: relative;
+}
+
+.item .name {
+    text-align: center;
+    font-family: sans-serif;
+    color: rgba(37, 37, 37, 0.46);
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.42);
+    font-size: 20px;
+    position: absolute;
+}
+
+.item button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.star {
+    position: absolute;
+    right: 5px;
+}
+
