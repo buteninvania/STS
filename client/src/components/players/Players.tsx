@@ -16,6 +16,8 @@ const Players = () => {
         history.push(`/home/${userId}`)
     }
 
+    console.log('render Players')
+
 
     useEffect(() => {
         dispatch(getPlayersThunk())

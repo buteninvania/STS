@@ -5,8 +5,6 @@ import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserName} from "../../redux/user-data-selector";
 import {addFavoritePlayground} from "../../redux/user-data-page";
-import star from "./../../img/star.svg";
-import SvgStar from "./SvgStar";
 
 const PlaygroundItem: React.FC<PropsDataType> = ({playground}) => {
 
@@ -28,7 +26,6 @@ const PlaygroundItem: React.FC<PropsDataType> = ({playground}) => {
                 <div>{playground.playgroundName}</div>
                 <div>({playground.institution})</div>
             </div>
-            <SvgStar/>
             {userName !== undefined ? <button
                 onClick={() => onClickPlayground(playground._id, userName)}>+</button> : null}
         </li>

@@ -20,8 +20,8 @@ const StreetTrafficProject = () => {
 
 const App = () => {
 
-
     const dispatch = useDispatch()
+
     useEffect(() => {
         dispatch(getDataUserThunk())
     })

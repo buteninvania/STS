@@ -38,5 +38,10 @@ export const playgroundsAPI = {
             .then(res => {
                 console.log(res)
             })
+    },
+
+    getPlaygroundData(playgroundId: string) {
+        return instance.get(`api/playground/${playgroundId}`, {})
+            .then(res => res.data.data)
     }
 }

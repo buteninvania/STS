@@ -61,7 +61,10 @@ export const getDataUserThunk = (): ThunkType => async (dispatch) => {
                 isAuth: true,
                 userPlayground: res.playground,
                 avatar: null,
-                userTeam: res.team,
+                userTeam: {
+                    teamName:res.team,
+                    teamAvatar: null
+                },
                 userName: res.name
             }
             dispatch(authActions.setIsAuth(userData))
@@ -98,6 +101,6 @@ export type UserDataType = {
     userName: string
 }
 type UserTeamType = {
-    teamAvatar: string,
+    teamAvatar: string | null,
     teamName: string
 }

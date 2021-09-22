@@ -256,13 +256,33 @@ app.get(
         try {
             const userId = req.params.userId
             let user = await User.findOne({_id: userId})
-            console.log(user)
             user = {
                 name: user.name,
                 team: user.team,
                 playground: user.playground
             }
             res.status(200).json({data: user})
+        } catch (e) {
+            res.status(500).json({data: {message: 'Ошибка сервера'}})
+        }
+    }
+)
+
+app.get (
+    '/api/playground/:playgroundId',
+    async (req, res) => {
+        try {
+            const playground = await Playground.findOne({_id: req.params.playgroundId})
+            const playgroundData = {
+                id: playground._id,
+                city: playground.city,
+                address: playground.address,
+                institution: playground.institution,
+                playgroundName: playground.playgroundName,
+            }
+            console.log(playgroundData)
+
+            res.status(200).json({data: playgroundData})
         } catch (e) {
             res.status(500).json({data: {message: 'Ошибка сервера'}})
         }

@@ -2,8 +2,9 @@ import {BaseThunkType, InferActionsTypes} from './redux-store'
 import {playgroundsAPI} from "../api/playgrounds-api";
 import {AddPlaygroundFormType} from "../forms/AddPlaygroundForm";
 
-const initialState : {playgrounds: PlaygroundsDataType[]} = {
+const initialState : {playgrounds: PlaygroundsDataType[], playgroundData: any} = {
     playgrounds: [],
+    playgroundData: null as PlaygroundsDataType | null
 }
 
 export const playgroundDataReducer = (state = initialState, action: ActionsType): InitialStateType => {
@@ -12,6 +13,11 @@ export const playgroundDataReducer = (state = initialState, action: ActionsType)
             return {
                 ...state,
                 playgrounds: [...action.playgrounds]
+            }
+        case "ButInProject/playground-page/SET-PLAYGROUND-DATA":
+            return {
+                ...state,
+                playgroundData: action.playgroundData
             }
         default:
             return state
@@ -23,6 +29,10 @@ export const playgroundActions = {
         type: "ButInProject/playground-page/SET-PLAYGROUNDS-DATA",
         playgrounds
     } as const),
+    setPlaygroundData: (playgroundData: PlaygroundsDataType) => ({
+        type: "ButInProject/playground-page/SET-PLAYGROUND-DATA",
+        playgroundData
+    } as const),
 }
 
 export const getPlaygroundsThunk = ():ThunkType => async (dispatch) => {
@@ -32,6 +42,14 @@ export const getPlaygroundsThunk = ():ThunkType => async (dispatch) => {
                 dispatch(playgroundActions.setPlaygrounds(playgrounds))
             })
             .catch(err => console.log(err))
+}
+
+export const getPlaygroundDataThunk = (playgroundId: string):ThunkType => async (dispatch) => {
+    await playgroundsAPI.getPlaygroundData(playgroundId)
+        .then(res => {
+            dispatch(playgroundActions.setPlaygroundData(res))
+        })
+        .catch(err => console.log(err))
 }
 
 export const addPlaygroundThunk = (playgroundData: AddPlaygroundFormType):ThunkType => async (dispatch) => {

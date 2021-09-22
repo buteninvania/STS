@@ -23,7 +23,7 @@ const Home = () => {
                     {userData.userTeam
                         ? <div className={h.team}>
                             <img src={teamImg} alt="team-logo"/>
-                            <div>{userData.userTeam}</div>
+                            <div>{userData.userTeam.teamName}</div>
                         </div>
                         : <NavLink to={"/team"}>Выберите команду</NavLink>
                     }
@@ -57,7 +57,7 @@ const UserPage: React.FC<any> = (userId: any) => {
 
     useEffect(() => {
         dispatch(getPlayerDataThunk(userId.userId))
-    },[])
+    })
 
     if (playerData.name !== undefined) {
         return (

@@ -15,7 +15,7 @@ const AdminEvent: React.FC = () => {
 
     useEffect(() => {
         dispatch(getEventsThunk())
-    }, [])
+    })
 
     return (
         <div>
