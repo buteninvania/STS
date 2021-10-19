@@ -1,0 +1,14 @@
+.wrapper {
+    display: flex;
+}
+
+.item {
+    width: 95%;
+    border: 1px solid #F8B200;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.itemHeader {
+    font-size: 1em;
+}
