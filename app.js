@@ -4,6 +4,7 @@ const config = require('config')
 const User = require('./models/User')
 const Playground = require('./models/Playgrounds')
 const Team = require('./models/Teams')
+const Games = require('./models/Games')
 const AdminEvents = require('./models/AdminEvents')
 const jwt = require('jsonwebtoken')
 const auth = require('./middleware/auth.middleware')
@@ -117,6 +118,13 @@ app.post(
                 await event.save()
                 res.status(201).json({data: {message: `Письмо отправлено администратору, в течении часа он рассмотрит его`}})
             }
+            if (futureEvent.type === "game") {
+                const event = new AdminEvents
+                event.adminEvents = {...futureEvent}
+                await event.save()
+                console.log(event)
+                res.status(201).json({data: {message: `Письмо отправлено администратору, в течении часа он рассмотрит его`}})
+            }
         } catch (e) {
             res.status(500).json({data: {message: 'Ошибка сервера'}})
         }
@@ -147,6 +155,17 @@ app.get(
                             fullName: item.adminEvents.fullName
                         })
                         break
+                    case "game":
+                        console.log(item)
+                        events.push({
+                            id: item._id,
+                            type: item.adminEvents.type,
+                            playground: item.adminEvents.playground,
+                            gameType: item.adminEvents.gameType,
+                            userTeam: item.adminEvents.userTeam,
+                            VS: item.adminEvents.VS,
+                            enemyTeam: item.adminEvents.enemyTeam
+                        })
                     default:
                         break
                 }
@@ -280,14 +299,26 @@ app.get (
                 institution: playground.institution,
                 playgroundName: playground.playgroundName,
             }
-            console.log(playgroundData)
-
             res.status(200).json({data: playgroundData})
         } catch (e) {
             res.status(500).json({data: {message: 'Ошибка сервера'}})
         }
     }
 )
+
+app.post(
+    '/api/games/add',
+    async (req, res) => {
+        try {
+            const reqGameData = req.body
+            const newEventAdmin = {
+            }
+            console.log(reqGameData)
+            res.status(201).json({data: {message: `Игра находится у подтверждении у модератора`, eventData: reqGameData}})
+        } catch (e) {
+            res.status(500).json({data: {message: 'Ошибка сервера'}})
+        }
+    })
 
 
 const PORT = config.get('port') | 5000

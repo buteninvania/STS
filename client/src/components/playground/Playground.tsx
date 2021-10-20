@@ -46,7 +46,9 @@ const Playground = () => {
                     <div className={p.maps}>Карта</div>
                 </div>
                 {showGamesCreationComponent && userData !== null
-                                            && userData.userTeam !== null ? <GameCreation userTeam={userData.userTeam.teamName} cancelCreateGame={() => setShowGamesCreationComponent(false)}/> : null}
+                                            && userData.userTeam !== null ? <GameCreation userTeam={userData.userTeam.teamName}
+                                                                                          cancelCreateGame={() => setShowGamesCreationComponent(false)}
+                                                                                          playgroundId={playgroundId}/> : null}
             </div>
         )
     }

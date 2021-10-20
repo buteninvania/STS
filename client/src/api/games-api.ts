@@ -1,5 +1,5 @@
 import {instance} from './api'
-import {TeamDataFormType} from "../forms/AddTeamForm";
+import {EventGamesDataType} from "../redux/games-page";
 
 export const gamesAPI = {
     getGames() {
@@ -11,14 +11,14 @@ export const gamesAPI = {
             .then(res => res.data.data)
     },
 
-    addGames(gamesData: TeamDataFormType) {
-        return instance.post(`api/adminevent/add`, {data: gamesData}, {
+    addGames(eventAddedGames: EventGamesDataType) {
+        return instance.post(`/api/adminevent/add`, {data: eventAddedGames}, {
             headers: {
                 'Content-Type': 'application/json'
             }
         })
             .then(res => {
-                console.log(res)
+                console.log(res.data)
             })
     },
 }

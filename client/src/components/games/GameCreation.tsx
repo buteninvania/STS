@@ -3,9 +3,9 @@ import g from "./games.module.css";
 import TeamList from "../team/TeamList";
 import {useForm, SubmitHandler} from "react-hook-form";
 import {useDispatch} from "react-redux";
-import {addGamesThunk} from "../../redux/games-page";
+import {sendEventAddedGamesThunk} from "../../redux/games-page";
 
-const GameCreation: React.FC<GameCreationPropsType> = ({cancelCreateGame, userTeam}) => {
+const GameCreation: React.FC<GameCreationPropsType> = ({cancelCreateGame, userTeam, playgroundId}) => {
 
     const { register, handleSubmit, setValue} = useForm();
     const dispatch = useDispatch()
@@ -16,7 +16,7 @@ const GameCreation: React.FC<GameCreationPropsType> = ({cancelCreateGame, userTe
 
     const changeNumberPlayers = () => numberPlayers === '3 X 3' ? setNumberPlayers('5 X 5') : setNumberPlayers('3 X 3')
     const selectEnemyTeam = (teamName: string) =>  setValue('enemyTeam', teamName)
-    const onSubmit: SubmitHandler<GameCreationFormValuesInterface> = (gamesData) => dispatch(addGamesThunk(gamesData))
+    const onSubmit: SubmitHandler<GameCreationFormValuesInterface> = (gamesData) => dispatch(sendEventAddedGamesThunk(gamesData, playgroundId))
 
     return (
         <form className={g.wrapper} onSubmit={handleSubmit(onSubmit)}>
@@ -45,9 +45,10 @@ export default GameCreation;
 type GameCreationPropsType = {
     cancelCreateGame: () => void,
     userTeam: string,
+    playgroundId: string
 }
 
-interface GameCreationFormValuesInterface {
+export interface GameCreationFormValuesInterface {
     gameType: string
     myTeam: string
     VS: string

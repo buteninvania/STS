@@ -1,5 +1,6 @@
 import {BaseThunkType, InferActionsTypes} from './redux-store'
 import {gamesAPI} from "../api/games-api";
+import {GameCreationFormValuesInterface} from "../components/games/GameCreation";
 
 
 const initialState : {games: GamesDataType[]} = {
@@ -33,8 +34,16 @@ export const getGamesThunk = ():ThunkType => async (dispatch) => {
             .catch(err => console.log(err))
 }
 
-export const addGamesThunk = (gamesData: any):ThunkType => async (dispatch) => {
-    await gamesAPI.addGames(gamesData)
+export const sendEventAddedGamesThunk = (gamesData: GameCreationFormValuesInterface, playgroundId: string):ThunkType => async (dispatch) => {
+    const eventAddedGames: EventGamesDataType = {
+        type: "game",
+        playground: "playgroundId",
+        gameType: gamesData.gameType,
+        userTeam: gamesData.myTeam,
+        VS: gamesData.VS,
+        enemyTeam: gamesData.enemyTeam
+    }
+    await gamesAPI.addGames(eventAddedGames)
         .then(res => {
             console.log(res)
         })
@@ -46,6 +55,17 @@ type ActionsType = InferActionsTypes<typeof gamesActions>
 type ThunkType = BaseThunkType<ActionsType>
 type GamesDataType = {
     _id: string,
-    name: string,
-    fullName: string
+    gameType: string
+    myTeam: string
+    VS: string
+    enemyTeam: string
+}
+
+export type EventGamesDataType = {
+    type: string,
+    playground: string,
+    gameType: string,
+    userTeam: string,
+    VS: string,
+    enemyTeam: string
 }
