@@ -28,7 +28,8 @@ const AdminEvent: React.FC = () => {
                         {item.address !== undefined ? `Адрес площадки: ${item.address}` : null}
                         {item.institution !== undefined ? `Учреждение площадки: ${item.institution}` : null}
                         {item.fullName !== undefined ? `Полное название команды: ${item.fullName}` : null}
-                        {`Отоброжаемое имя: ${item.name}`}
+                        {item.name !== undefined ? `Отоброжаемое имя: ${item.name}` : null}
+                        {item.type === 'game' ? `Команда №1 - ${item.userTeam} против ${item.enemyTeam} тип игры - ${item.gameType} колличество игроков (${item.VS}) на площадке ${item.playground}` : null}
                         <button onClick={() => responseEvent(item.id, true)}>Разрешить</button>
                         <button onClick={() => responseEvent(item.id, false)}>Отклонить</button>
                     </div>

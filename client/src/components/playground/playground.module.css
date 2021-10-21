@@ -35,7 +35,6 @@
     color: rgba(37, 37, 37, 0.46);
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.42);
     font-size: 20px;
-    position: absolute;
 }
 
 .item button {
@@ -84,4 +83,8 @@
 
 .actions button {
     margin: 0 5px;
+}
+
+.gameWrapper {
+    display: flex;
 }

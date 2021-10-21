@@ -5,6 +5,9 @@ const scheme = new Schema({
     address: {type: String, required: true},
     institution: {type: String, required: false},
     playgroundName: {type: String, required: false},
+    game: [{
+        type: String
+    }]
 })
 
 module.exports = model('Playground', scheme)

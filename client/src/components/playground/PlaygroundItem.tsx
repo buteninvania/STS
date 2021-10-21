@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import p from "./playground.module.css";
 import {PlaygroundsDataType} from "../../redux/playgrounds-page";
 import {useHistory} from "react-router-dom";
@@ -26,6 +26,13 @@ const PlaygroundItem: React.FC<PropsDataType> = ({playground}) => {
                 <div>{playground.playgroundName}</div>
                 <div>({playground.institution})</div>
             </div>
+            <div className={p.gameWrapper}>
+                {
+                    playground.game.length > 0 ? playground.game.map((item, index) => {
+                        return <GameItem key={index} gameId={item}/>
+                    }) : null
+                }
+            </div>
             {userName !== undefined ? <button
                 onClick={() => onClickPlayground(playground._id, userName)}>+</button> : null}
         </li>
@@ -36,4 +43,23 @@ export default PlaygroundItem;
 
 type PropsDataType = {
     playground: PlaygroundsDataType
+}
+
+const GameItem:React.FC<GameItemPropsType> = ({gameId}) => {
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        
+    }, [])
+
+    return (
+        <div>
+            {gameId}
+        </div>
+    )
+}
+
+type GameItemPropsType = {
+    gameId: string
 }

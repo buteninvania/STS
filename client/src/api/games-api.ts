@@ -8,7 +8,10 @@ export const gamesAPI = {
                 'Content-Type': 'application/json'
             }
         })
-            .then(res => res.data.data)
+            .then(res => {
+                debugger
+                 return res.data.data
+            })
     },
 
     addGames(eventAddedGames: EventGamesDataType) {

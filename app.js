@@ -95,7 +95,6 @@ app.post(
     async (req, res) => {
         try {
             const futureEvent = req.body.data
-            console.log(futureEvent)
             if (futureEvent.type === "playground") {
                 const event = new AdminEvents
                 event.adminEvents = {
@@ -122,7 +121,6 @@ app.post(
                 const event = new AdminEvents
                 event.adminEvents = {...futureEvent}
                 await event.save()
-                console.log(event)
                 res.status(201).json({data: {message: `Письмо отправлено администратору, в течении часа он рассмотрит его`}})
             }
         } catch (e) {
@@ -156,7 +154,6 @@ app.get(
                         })
                         break
                     case "game":
-                        console.log(item)
                         events.push({
                             id: item._id,
                             type: item.adminEvents.type,
@@ -202,6 +199,24 @@ app.post(
                         await AdminEvents.findOneAndDelete({_id: event._id})
                         res.status(201).json({data: {message: `Команда ${team.name} создана`}})
                         break
+                    case "game":
+                        const game = new Games({
+                            playground: event.adminEvents.playground,
+                            gameType: event.adminEvents.gameType,
+                            userTeam: event.adminEvents.userTeam,
+                            VS: event.adminEvents.VS,
+                            enemyTeam: event.adminEvents.enemyTeam
+                        })
+                        await game.save()
+                        //Добавление игры к соответствующей площадке
+                        //Сначала найдем соответствующую площадку
+                        const gamePlayground = await Playground.findOne({_id: event.adminEvents.playground})
+                        const gameId = game._id
+                        console.log(gameId)
+                        gamePlayground.game.push(gameId)
+                        await gamePlayground.save()
+                        await AdminEvents.findOneAndDelete({_id: event._id})
+                        res.status(201).json({data: {message: `Мероприятие создано`}})
                     default:
                         break
                 }
@@ -214,6 +229,9 @@ app.post(
                     case "team":
                         await AdminEvents.findOneAndDelete({_id: event._id})
                         res.status(200).json({data: {message: `В созданиии команды ${event.adminEvents.name} отказано в доступе`}})
+                    case "game":
+                        await AdminEvents.findOneAndDelete({_id: event._id})
+                        res.status(200).json({data: {message: `В созданиии игры отказано в доступе`}})
                 }
             }
         } catch (e) {
@@ -313,12 +331,23 @@ app.post(
             const reqGameData = req.body
             const newEventAdmin = {
             }
-            console.log(reqGameData)
             res.status(201).json({data: {message: `Игра находится у подтверждении у модератора`, eventData: reqGameData}})
         } catch (e) {
             res.status(500).json({data: {message: 'Ошибка сервера'}})
         }
     })
+
+app.get (
+    '/api/games/sync',
+    async (req, res) => {
+        try {
+            const games = await Games.find()
+            res.status(200).json({data: games})
+        } catch (e) {
+            res.status(500).json({data: {message: 'Ошибка сервера'}})
+        }
+    }
+)
 
 
 const PORT = config.get('port') | 5000

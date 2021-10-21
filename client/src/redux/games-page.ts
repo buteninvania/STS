@@ -1,13 +1,12 @@
-import {BaseThunkType, InferActionsTypes} from './redux-store'
+import {BaseThunkType, InferActionsTypes} from "./redux-store";
 import {gamesAPI} from "../api/games-api";
 import {GameCreationFormValuesInterface} from "../components/games/GameCreation";
-
 
 const initialState : {games: GamesDataType[]} = {
     games: [],
 }
 
-export const gameDataReducer = (state = initialState, action: ActionsType): InitialStateType => {
+export const gamesDataReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case "ButInProject/games-page/SET-GAMES":
             return {
@@ -20,7 +19,7 @@ export const gameDataReducer = (state = initialState, action: ActionsType): Init
 }
 
 export const gamesActions = {
-    setTeams: (games: []) => ({
+    setGames: (games: []) => ({
         type: "ButInProject/games-page/SET-GAMES",
         games
     } as const),
@@ -29,15 +28,15 @@ export const gamesActions = {
 export const getGamesThunk = ():ThunkType => async (dispatch) => {
         await gamesAPI.getGames()
             .then(res => {
-                debugger
+                dispatch(gamesActions.setGames(res))
             })
             .catch(err => console.log(err))
 }
 
-export const sendEventAddedGamesThunk = (gamesData: GameCreationFormValuesInterface, playgroundId: string):ThunkType => async (dispatch) => {
+export const sendEventAddedGamesThunk = (gamesData: GameCreationFormValuesInterface, playgroundId: any):ThunkType => async (dispatch) => {
     const eventAddedGames: EventGamesDataType = {
         type: "game",
-        playground: "playgroundId",
+        playground: playgroundId.name,
         gameType: gamesData.gameType,
         userTeam: gamesData.myTeam,
         VS: gamesData.VS,
@@ -60,7 +59,6 @@ type GamesDataType = {
     VS: string
     enemyTeam: string
 }
-
 export type EventGamesDataType = {
     type: string,
     playground: string,

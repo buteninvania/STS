@@ -16,7 +16,9 @@ const GameCreation: React.FC<GameCreationPropsType> = ({cancelCreateGame, userTe
 
     const changeNumberPlayers = () => numberPlayers === '3 X 3' ? setNumberPlayers('5 X 5') : setNumberPlayers('3 X 3')
     const selectEnemyTeam = (teamName: string) =>  setValue('enemyTeam', teamName)
-    const onSubmit: SubmitHandler<GameCreationFormValuesInterface> = (gamesData) => dispatch(sendEventAddedGamesThunk(gamesData, playgroundId))
+    const onSubmit: SubmitHandler<GameCreationFormValuesInterface> = (gamesData) => {
+        dispatch(sendEventAddedGamesThunk(gamesData, playgroundId))
+    }
 
     return (
         <form className={g.wrapper} onSubmit={handleSubmit(onSubmit)}>

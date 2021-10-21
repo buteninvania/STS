@@ -70,4 +70,5 @@ export type PlaygroundsDataType = {
     institution: string | null,
     type: string | null,
     _id: string
+    game: []
 }

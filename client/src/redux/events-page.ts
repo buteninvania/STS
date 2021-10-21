@@ -50,5 +50,10 @@ type EventDataType = {
     institution: string | null,
     type: string,
     name: string,
-    fullName: string | null
+    fullName: string | null,
+    playground: string | null,
+    gameType: string | null,
+    userTeam: string | null,
+    VS: string | null,
+    enemyTeam: string | null
 }

@@ -18,7 +18,6 @@ const PlaygroundsList = () => {
     return (
         <div className={p.wrapper}>
             <div className={p.header}>Площадки</div>
-
             {
                 playgrounds.length > 0 &&
                 <ul className={p.list}>
@@ -27,7 +26,6 @@ const PlaygroundsList = () => {
                     })}
                 </ul>
             }
-
             <NavLink to="/addplayground">Добавить площадку</NavLink>
         </div>
     )
