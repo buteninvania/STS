@@ -3,16 +3,24 @@ import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
 import {addPlaygroundThunk} from "../redux/playgrounds-page";
 
+
 const AddPlaygroundForm: React.FC<any> = () => {
 
     const dispatch = useDispatch()
 
-    const submit = (values:AddPlaygroundFormType) => {
+    const submit = (values: AddPlaygroundFormType) => {
         dispatch(addPlaygroundThunk(values))
     }
 
     const formik = useFormik({
-        initialValues: {city: '', address: '', institution: '', playgroundName: '', type: 'playground'},
+        initialValues: {
+            city: '',
+            address: '',
+            institution: '',
+            playgroundName: '',
+            type: 'playground',
+            playgroundPosition: ''
+        },
         onSubmit: ((values: AddPlaygroundFormType) => {
             submit(values)
         })
@@ -24,22 +32,37 @@ const AddPlaygroundForm: React.FC<any> = () => {
                    name="city"
                    id="city"
                    onChange={formik.handleChange}
+                   placeholder="Введите город"
                    value={formik.values.city}/>
             <input type="text"
                    name="address"
                    id="address"
                    onChange={formik.handleChange}
+                   placeholder="Введите улицу"
                    value={formik.values.address}/>
             <input type="text"
                    name="institution"
                    id="institution"
                    onChange={formik.handleChange}
+                   placeholder="Введите учреждение"
                    value={formik.values.institution}/>
             <input type="text"
                    name="playgroundName"
                    id="playgroundName"
                    onChange={formik.handleChange}
+                   placeholder="Введите имя каким его обычно называют"
                    value={formik.values.playgroundName}/>
+            <input type="text"
+                   name="playgroundPosition"
+                   id="playgroundPosition"
+                   onChange={formik.handleChange}
+                   placeholder="Введите скопированные координаты для быстрой проверки"
+                   value={formik.values.playgroundPosition}/>
+            <a target="blank" href="https://yandex.ru/maps/12/smolensk/?ll=32.045251%2C54.782635&z=12">
+                <img width={100}
+                     src="https://w7.pngwing.com/pngs/458/516/png-transparent-yandex-maps-google-play-map-text-logo-map-thumbnail.png"
+                     alt="a"/>
+            </a>
             <button type="submit">Отправить</button>
         </form>
     )
@@ -53,4 +76,5 @@ export type AddPlaygroundFormType = {
     institution: string | null,
     playgroundName: string,
     type: string | null
+    playgroundPosition: string | null
 }

@@ -40,7 +40,7 @@ export const getPlaygroundsThunk = ():ThunkType => async (dispatch) => {
         await playgroundsAPI.getPlaygrounds()
             .then(res => {
                 const playgrounds = res.playgrounds
-
+                debugger
                 dispatch(playgroundActions.setPlaygrounds(playgrounds))
             })
             .catch(err => console.log(err))
@@ -49,17 +49,18 @@ export const getPlaygroundsThunk = ():ThunkType => async (dispatch) => {
 export const getPlaygroundDataThunk = (playgroundId: string):ThunkType => async (dispatch) => {
     await playgroundsAPI.getPlaygroundData(playgroundId)
         .then(res => {
+            debugger
             dispatch(playgroundActions.setPlaygroundData(res))
         })
         .catch(err => console.log(err))
 }
 
 export const addPlaygroundThunk = (playgroundData: AddPlaygroundFormType):ThunkType => async (dispatch) => {
-    await playgroundsAPI.sendEventPlaygroundAdmin(playgroundData)
-        .then(res => {
-            console.log(res)
-        })
-        .catch(err => console.log(err))
+   await playgroundsAPI.sendEventPlaygroundAdmin(playgroundData)
+       .then(res => {
+           console.log(res)
+       })
+       .catch(err => console.log(err))
 }
 
 type InitialStateType = typeof initialState
@@ -81,5 +82,6 @@ export type PlaygroundsDataType = {
     institution: string | null,
     type: string | null,
     _id: string
-    game: GameDataType[]
+    game: GameDataType[],
+    playgroundPosition: string | null
 }

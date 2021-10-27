@@ -7,6 +7,7 @@ import {getPlaygroundDataThunk} from "../../redux/playgrounds-page";
 import Preloader from "../preloader/Preloader";
 import GameCreation from "../games/GameCreation";
 import {getUserData} from "../../redux/user-data-selector";
+import {YMaps, Map, Placemark} from 'react-yandex-maps';
 
 const Playground = () => {
 
@@ -35,7 +36,7 @@ const Playground = () => {
                         <div className={p.data}>
                             <div>Подписчики: 12</div>
                             <div>Играют: 12</div>
-                            <div>Тренировачные: 12</div>
+                            <div>Тренировочные: 12</div>
                             <div>Соревновательные: 12</div>
                         </div>
                         <div className={p.actions}>
@@ -43,7 +44,7 @@ const Playground = () => {
                             <button onClick={() => setShowGamesCreationComponent(true)}>Создать игру</button>
                         </div>
                     </div>
-                    <div className={p.maps}>Карта</div>
+                    <div className={p.mapsWrapper}><PlaygroundMap/></div>
                 </div>
                 {showGamesCreationComponent && userData !== null
                                             && userData.userTeam !== null ? <GameCreation userTeam={userData.userTeam.teamName}
@@ -55,3 +56,15 @@ const Playground = () => {
 }
 
 export default Playground;
+
+const PlaygroundMap = () => {
+    return (
+        <YMaps>
+            <Map width={700} height={500} defaultState={{ center: [54.774631, 32.061237], zoom: 18 }} >
+                <Placemark geometry={[54.774631, 32.061237]} />
+            </Map>
+        </YMaps>
+    )
+}
+
+

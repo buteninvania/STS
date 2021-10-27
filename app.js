@@ -114,7 +114,10 @@ app.post(
                     address: futureEvent.address,
                     institution: futureEvent.institution,
                     name: futureEvent.playgroundName,
+                    playgroundPosition: futureEvent.playgroundPosition
                 }
+
+                console.log(event)
                 await event.save()
                 res.status(201).json({data: {message: `Письмо отправлено администратору, в течении часа он рассмотрит его`}})
             }
@@ -197,6 +200,7 @@ app.post(
                             address: event.adminEvents.address,
                             institution: event.adminEvents.institution,
                             playgroundName: event.adminEvents.name,
+                            playgroundPosition: event.adminEvents.playgroundPosition
                         })
                         await playground.save()
                         await AdminEvents.findOneAndDelete({_id: event._id})

@@ -27,10 +27,9 @@ const PlaygroundItem: React.FC<PropsDataType> = ({playground}) => {
                 <div>({playground.institution})</div>
             </div>
             <div className={p.gameWrapper}>
-                { playground.game.length > 0 ? playground.game.map((item, index) => <GameItem key={index} gameId={item._id}/>) : null }
+                { playground.game.length > 0 ? playground.game.map((item, index) => <GameItem key={index} date={item.date} VS={item.VS} gameType={item.gameType}/>) : null }
             </div>
-            {userName !== undefined ? <button
-                onClick={() => onClickPlayground(playground._id, userName)}>+</button> : null}
+            {userName !== undefined ? <button onClick={() => onClickPlayground(playground._id, userName)}>+</button> : null}
         </li>
     )
 }
@@ -41,15 +40,17 @@ type PropsDataType = {
     playground: PlaygroundsDataType
 }
 
-const GameItem:React.FC<GameItemPropsType> = ({gameId}) => {
+const GameItem:React.FC<GameItemPropsType> = ({VS, date, gameType}) => {
 
     return (
-        <div>
-            {gameId}
+        <div className={gameType==="training" ? p.gameDot : p.gameDot + ' ' + p.attack}>
+            {VS}
         </div>
     )
 }
 
 type GameItemPropsType = {
-    gameId: string
+    VS: string,
+    date: string
+    gameType: string
 }
