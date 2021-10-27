@@ -12,7 +12,8 @@ export const playgroundDataReducer = (state = initialState, action: ActionsType)
         case "ButInProject/playground-page/SET-PLAYGROUNDS-DATA":
             return {
                 ...state,
-                playgrounds: [...action.playgrounds]
+                playgrounds: [...action.playgrounds],
+                
             }
         case "ButInProject/playground-page/SET-PLAYGROUND-DATA":
             return {
@@ -39,6 +40,7 @@ export const getPlaygroundsThunk = ():ThunkType => async (dispatch) => {
         await playgroundsAPI.getPlaygrounds()
             .then(res => {
                 const playgrounds = res.playgrounds
+
                 dispatch(playgroundActions.setPlaygrounds(playgrounds))
             })
             .catch(err => console.log(err))
@@ -63,6 +65,15 @@ export const addPlaygroundThunk = (playgroundData: AddPlaygroundFormType):ThunkT
 type InitialStateType = typeof initialState
 type ActionsType = InferActionsTypes<typeof playgroundActions>
 type ThunkType = BaseThunkType<ActionsType>
+type GameDataType = {
+    _id: string
+    playground: string
+    gameType: string
+    userTeam: string
+    VS: string
+    enemyTeam: string
+    date: string
+}
 export type PlaygroundsDataType = {
     playgroundName: string,
     city: string,
@@ -70,5 +81,5 @@ export type PlaygroundsDataType = {
     institution: string | null,
     type: string | null,
     _id: string
-    game: []
+    game: GameDataType[]
 }

@@ -27,11 +27,7 @@ const PlaygroundItem: React.FC<PropsDataType> = ({playground}) => {
                 <div>({playground.institution})</div>
             </div>
             <div className={p.gameWrapper}>
-                {
-                    playground.game.length > 0 ? playground.game.map((item, index) => {
-                        return <GameItem key={index} gameId={item}/>
-                    }) : null
-                }
+                { playground.game.length > 0 ? playground.game.map((item, index) => <GameItem key={index} gameId={item._id}/>) : null }
             </div>
             {userName !== undefined ? <button
                 onClick={() => onClickPlayground(playground._id, userName)}>+</button> : null}
@@ -46,12 +42,6 @@ type PropsDataType = {
 }
 
 const GameItem:React.FC<GameItemPropsType> = ({gameId}) => {
-
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        
-    }, [])
 
     return (
         <div>

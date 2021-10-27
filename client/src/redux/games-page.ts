@@ -40,13 +40,15 @@ export const sendEventAddedGamesThunk = (gamesData: GameCreationFormValuesInterf
         gameType: gamesData.gameType,
         userTeam: gamesData.myTeam,
         VS: gamesData.VS,
-        enemyTeam: gamesData.enemyTeam
+        enemyTeam: gamesData.enemyTeam,
+        date: gamesData.date
     }
+
     await gamesAPI.addGames(eventAddedGames)
-        .then(res => {
-            console.log(res)
-        })
-        .catch(err => console.log(err))
+       .then(res => {
+           console.log(res)
+       })
+       .catch(err => console.log(err))
 }
 
 type InitialStateType = typeof initialState
@@ -65,5 +67,6 @@ export type EventGamesDataType = {
     gameType: string,
     userTeam: string,
     VS: string,
-    enemyTeam: string
+    enemyTeam: string,
+    date: string
 }

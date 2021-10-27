@@ -58,6 +58,17 @@ app.get(
     async (req, res) => {
         try {
             const playgrounds = await Playground.find()
+            for(let i = 0; i < playgrounds.length; i++) {
+                playgrounds[i].game.filter(item => {
+                    const getDate = (date) => {
+                        let day = date.getDate();
+                        let month = date.getMonth();
+                        let year = date.getFullYear();
+                        return `${day}/${month}/${year}`
+                    }
+                    getDate(new Date()) === getDate(new Date(item.date)) ? true : false
+                })
+            }
             res.status(200).json({data: {playgrounds}})
 
         } catch (e) {
@@ -161,7 +172,8 @@ app.get(
                             gameType: item.adminEvents.gameType,
                             userTeam: item.adminEvents.userTeam,
                             VS: item.adminEvents.VS,
-                            enemyTeam: item.adminEvents.enemyTeam
+                            enemyTeam: item.adminEvents.enemyTeam,
+                            date: item.adminEvents.date
                         })
                     default:
                         break
@@ -205,15 +217,14 @@ app.post(
                             gameType: event.adminEvents.gameType,
                             userTeam: event.adminEvents.userTeam,
                             VS: event.adminEvents.VS,
-                            enemyTeam: event.adminEvents.enemyTeam
+                            enemyTeam: event.adminEvents.enemyTeam,
+                            date: event.adminEvents.date
                         })
                         await game.save()
                         //Добавление игры к соответствующей площадке
                         //Сначала найдем соответствующую площадку
                         const gamePlayground = await Playground.findOne({_id: event.adminEvents.playground})
-                        const gameId = game._id
-                        console.log(gameId)
-                        gamePlayground.game.push(gameId)
+                        gamePlayground.game.push(game)
                         await gamePlayground.save()
                         await AdminEvents.findOneAndDelete({_id: event._id})
                         res.status(201).json({data: {message: `Мероприятие создано`}})

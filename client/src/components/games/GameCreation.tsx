@@ -10,6 +10,8 @@ const GameCreation: React.FC<GameCreationPropsType> = ({cancelCreateGame, userTe
     const { register, handleSubmit, setValue} = useForm();
     const dispatch = useDispatch()
 
+    const date = String(new Date())
+
     const [numberPlayers, setNumberPlayers] = useState('3 X 3')
     const [teamName, setTeamName] = useState('Выберите команду противника')
     const [showTeamList, setShowTeamList] = useState(false)
@@ -33,7 +35,9 @@ const GameCreation: React.FC<GameCreationPropsType> = ({cancelCreateGame, userTe
                     <input {...register("VS")} className={g.creatorVS}  value={numberPlayers} onClick={() => changeNumberPlayers()}/>
                     <input {...register("enemyTeam")} type="text" className={g.creatorTeam + ' ' + g.enemy} value={teamName} onClick={() => setShowTeamList(true)}/>
                 </div>
-                <div className={g.creatorDate}>Выбрать дату</div>
+                <div className={g.creatorDate}>
+                    <input {...register("date")} type="text" defaultValue={date} className={g.creatorTeam}/>
+                </div>
             </div>
             <input type="submit"/>
             <button onClick={() => cancelCreateGame()}>Отменить</button>
@@ -55,4 +59,5 @@ export interface GameCreationFormValuesInterface {
     myTeam: string
     VS: string
     enemyTeam: string
+    date: string
 }
