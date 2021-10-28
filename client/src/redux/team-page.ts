@@ -2,8 +2,9 @@ import {BaseThunkType, InferActionsTypes} from './redux-store'
 import {teamsAPI} from "../api/teams-api";
 import {TeamDataFormType} from "../forms/AddTeamForm";
 
-const initialState : {teams: TeamDataType[]} = {
+const initialState: { teams: TeamDataType[], teamData: TeamDataType | null } = {
     teams: [],
+    teamData: null
 }
 
 export const teamDataReducer = (state = initialState, action: ActionsType): InitialStateType => {
@@ -12,6 +13,11 @@ export const teamDataReducer = (state = initialState, action: ActionsType): Init
             return {
                 ...state,
                 teams: [...action.teams]
+            }
+        case "ButInProject/team-page/SET-TEAMS-DATA":
+            return {
+                ...state,
+                teamData: action.teamData
             }
         default:
             return state
@@ -23,18 +29,31 @@ export const teamsActions = {
         type: "ButInProject/team-page/SET-TEAMS",
         teams
     } as const),
+    setTeamData: (teamData: TeamDataType) => ({
+        type: "ButInProject/team-page/SET-TEAMS-DATA",
+        teamData
+    } as const),
 }
 
-export const getTeamsThunk = ():ThunkType => async (dispatch) => {
-        await teamsAPI.getTeams()
-            .then(res => {
-                const teams = res.teams
-                dispatch(teamsActions.setTeams(teams))
-            })
-            .catch(err => console.log(err))
+export const getTeamsThunk = (): ThunkType => async (dispatch) => {
+    await teamsAPI.getTeams()
+        .then(res => {
+            const teams = res.teams
+            dispatch(teamsActions.setTeams(teams))
+        })
+        .catch(err => console.log(err))
 }
 
-export const addTeamsThunk = (teamData: TeamDataFormType):ThunkType => async (dispatch) => {
+export const getTeamDataThunk = (teamId: string): ThunkType => async (dispatch) => {
+    await teamsAPI.getTeamData(teamId)
+        .then(res => {
+            const teams = res.teams
+            dispatch(teamsActions.setTeams(teams))
+        })
+        .catch(err => console.log(err))
+}
+
+export const addTeamsThunk = (teamData: TeamDataFormType): ThunkType => async (dispatch) => {
     await teamsAPI.sendEventTeamAdmin(teamData)
         .then(res => {
             console.log(res)

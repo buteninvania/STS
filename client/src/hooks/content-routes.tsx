@@ -8,12 +8,14 @@ import Team from "../components/team/Team";
 import AdminEvent from "../components/admin-event/AdminEvent";
 import Players from "../components/players/Players";
 import Playground from "../components/playground/Playground";
+import TeamPage from "../components/team/TeamPage";
 
 export const useRoutesContent = () => {
     return (
         <Switch>
             <Route path="/home/:name" exact component={Home}/>
             <Route path="/playground/:name" exact component={Playground}/>
+            <Route path="/team/:teamId" exact component={TeamPage}/>
             <Route path="/home" exact component={Home}/>
             <Route path="/register" exact component={Authorization}/>
             <Route path="/playground" exact component={PlaygroundsList}/>

@@ -10,6 +10,14 @@ export const teamsAPI = {
         })
             .then(res => res.data.data)
     },
+    getTeamData(teamId:string) {
+        return instance.get(`api/team/${teamId}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.data.data)
+    },
     addFavoriteTeam(userName: string | undefined, teamId: string) {
         return instance.post(`api/team/favorite`, {userName, teamId}, {
             headers: {
