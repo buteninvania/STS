@@ -364,6 +364,21 @@ app.get (
     }
 )
 
+app.get (
+    '/api/team/:teamId',
+    async (req, res) => {
+        try {
+            const teamId = req.params.teamId
+            let user = await Team.findOne({_id: teamId})
+            res.status(200).json({data: user})
+        } catch (e) {
+            res.status(500).json({data: {message: 'Ошибка сервера'}})
+        }
+    }
+)
+
+
+
 
 const PORT = config.get('port') | 5000
 

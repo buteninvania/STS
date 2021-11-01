@@ -47,8 +47,7 @@ export const getTeamsThunk = (): ThunkType => async (dispatch) => {
 export const getTeamDataThunk = (teamId: string): ThunkType => async (dispatch) => {
     await teamsAPI.getTeamData(teamId)
         .then(res => {
-            const teams = res.teams
-            dispatch(teamsActions.setTeams(teams))
+            dispatch(teamsActions.setTeamData(res))
         })
         .catch(err => console.log(err))
 }
