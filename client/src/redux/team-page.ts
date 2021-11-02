@@ -54,10 +54,10 @@ export const getTeamDataThunk = (teamId: string): ThunkType => async (dispatch) 
 
 export const addTeamsThunk = (teamData: TeamDataFormType): ThunkType => async (dispatch) => {
     await teamsAPI.sendEventTeamAdmin(teamData)
-        .then(res => {
-            console.log(res)
-        })
-        .catch(err => console.log(err))
+       .then(res => {
+           console.log(res)
+       })
+       .catch(err => console.log(err))
 }
 
 type InitialStateType = typeof initialState
@@ -66,5 +66,7 @@ type ThunkType = BaseThunkType<ActionsType>
 type TeamDataType = {
     _id: string,
     name: string,
-    fullName: string
+    fullName: string,
+    users: string[],
+    leader: string
 }

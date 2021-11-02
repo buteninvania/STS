@@ -40,7 +40,6 @@ export const getPlaygroundsThunk = ():ThunkType => async (dispatch) => {
         await playgroundsAPI.getPlaygrounds()
             .then(res => {
                 const playgrounds = res.playgrounds
-                debugger
                 dispatch(playgroundActions.setPlaygrounds(playgrounds))
             })
             .catch(err => console.log(err))
@@ -49,7 +48,6 @@ export const getPlaygroundsThunk = ():ThunkType => async (dispatch) => {
 export const getPlaygroundDataThunk = (playgroundId: string):ThunkType => async (dispatch) => {
     await playgroundsAPI.getPlaygroundData(playgroundId)
         .then(res => {
-            debugger
             dispatch(playgroundActions.setPlaygroundData(res))
         })
         .catch(err => console.log(err))

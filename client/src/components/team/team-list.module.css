@@ -12,3 +12,21 @@
 .itemHeader {
     font-size: 1em;
 }
+
+.teamItem {
+    list-style: none;
+    display: flex;
+    cursor: pointer;
+    background-color: #725BA5;
+    margin: 5px;
+    width: 20%;
+    justify-content: space-between;
+}
+
+.teamsPageTitle {
+    text-align: center;
+    font-family: sans-serif;
+    color: rgba(37, 37, 37, 0.46);
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.42);
+    font-size: 30px;
+}

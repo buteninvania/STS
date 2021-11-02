@@ -9,7 +9,6 @@ const AdminEvent: React.FC = () => {
     const events = useSelector(getPlaygroundsSelector)
 
     const responseEvent = (eventId: string, response: boolean) => {
-        console.log(eventId, response)
         dispatch(sendResponseEventAdminThunk(eventId, response))
     }
 
@@ -22,6 +21,7 @@ const AdminEvent: React.FC = () => {
             События администратора
             {
                 (events.length > 0) ? events.map((item, index) => {
+                    debugger
                     return <div key={index}>
                         Тип события: `{item.type}`,
                         {item.city !== undefined ? `Город: ${item.city},` : null}
@@ -31,6 +31,7 @@ const AdminEvent: React.FC = () => {
                         {item.name !== undefined ? `Отоброжаемое имя: ${item.name}` : null}
                         {item.type === 'game' ? `Команда №1 - ${item.userTeam} против ${item.enemyTeam} тип игры - ${item.gameType} колличество игроков (${item.VS}) на площадке ${item.playground}` : null}
                         {item.date !== undefined ? `Дата: ${item.date}` : null}
+                        {item.leader !== undefined ? `Лидер: ${item.leader}` : null}
                         <button onClick={() => responseEvent(item.id, true)}>Разрешить</button>
                         <button onClick={() => responseEvent(item.id, false)}>Отклонить</button>
                     </div>

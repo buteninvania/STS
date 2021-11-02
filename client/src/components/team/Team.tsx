@@ -6,14 +6,13 @@ import {getTeamsSelector} from "../../redux/team-data-selector";
 import {getUserName} from "../../redux/user-data-selector";
 import {addFavoriteTeams} from "../../redux/user-data-page";
 import {useHistory} from "react-router-dom";
+import t from "./team-list.module.css";
 
 const Team = () => {
 
     const history = useHistory()
-
     const teams = useSelector(getTeamsSelector)
     const userName = useSelector(getUserName)
-
     const dispatch = useDispatch()
 
     const handleOnClick = (teamId: string) => {
@@ -21,7 +20,7 @@ const Team = () => {
     }
 
     const onClickTeam = (userName: string | undefined, teamId: string) => {
-            dispatch(addFavoriteTeams(userName, teamId))
+        dispatch(addFavoriteTeams(userName, teamId))
     }
 
     useEffect(() => {
@@ -30,20 +29,19 @@ const Team = () => {
 
     return (
         <div>
-            <AddTeamForm/>
-            {
-                teams.length > 0 &&
-                <ul>
-                    {teams.map((team, id) => {
-                        return (
-                            <li onClick={() => handleOnClick(team._id)} key={id}>
-                                {team.fullName}
-                                {userName !== undefined ? <button onClick={() => onClickTeam(userName, team._id)}>Выбрать команду</button> : null}
-                            </li>
-                        )
-                    })}
-                </ul>
-            }
+            <AddTeamForm userName={userName}/>
+                {teams.length > 0 &&
+                    <ul>
+                        {teams.map((team, id) => {
+                            return (
+                                <li className={t.teamItem} onClick={() => handleOnClick(team._id)} key={id}>
+                                    {team.fullName}
+                                    {userName !== undefined ? <button onClick={() => onClickTeam(userName, team._id)}>+</button> : null}
+                                </li>
+                            )
+                        })}
+                    </ul>
+                }
         </div>
     )
 }

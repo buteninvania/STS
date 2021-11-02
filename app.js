@@ -46,7 +46,7 @@ app.post(
             const token = jwt.sign(
                 {name},
                 config.get('jwtSecret'),
-            {expiresIn: '2h'}
+                {expiresIn: '2h'}
             )
             res.status(200).json({data: {name: user.name, playground: user.playground, token}})
         } catch (e) {
@@ -58,7 +58,7 @@ app.get(
     async (req, res) => {
         try {
             const playgrounds = await Playground.find()
-            for(let i = 0; i < playgrounds.length; i++) {
+            for (let i = 0; i < playgrounds.length; i++) {
                 playgrounds[i].game.filter(item => {
                     const getDate = (date) => {
                         let day = date.getDate();
@@ -116,8 +116,6 @@ app.post(
                     name: futureEvent.playgroundName,
                     playgroundPosition: futureEvent.playgroundPosition
                 }
-
-                console.log(event)
                 await event.save()
                 res.status(201).json({data: {message: `Письмо отправлено администратору, в течении часа он рассмотрит его`}})
             }
@@ -127,6 +125,8 @@ app.post(
                     type: futureEvent.type,
                     name: futureEvent.name,
                     fullName: futureEvent.fullName,
+                    users: [].push(futureEvent.userName),
+                    leader: futureEvent.userName
                 }
                 await event.save()
                 res.status(201).json({data: {message: `Письмо отправлено администратору, в течении часа он рассмотрит его`}})
@@ -164,7 +164,9 @@ app.get(
                             id: item._id,
                             type: item.adminEvents.type,
                             name: item.adminEvents.name,
-                            fullName: item.adminEvents.fullName
+                            fullName: item.adminEvents.fullName,
+                            users: item.adminEvents.users,
+                            leader: item.adminEvents.leader
                         })
                         break
                     case "game":
@@ -210,7 +212,10 @@ app.post(
                         const team = new Team({
                             name: event.adminEvents.name,
                             fullName: event.adminEvents.fullName,
+                            users: [event.adminEvents.leader],
+                            leader: event.adminEvents.leader,
                         })
+                        console.log(team)
                         await team.save()
                         await AdminEvents.findOneAndDelete({_id: event._id})
                         res.status(201).json({data: {message: `Команда ${team.name} создана`}})
@@ -253,7 +258,6 @@ app.post(
             res.status(500).json({data: {message: 'Ошибка сервера'}})
         }
     })
-
 app.get(
     '/api/auth/data',
     auth,
@@ -266,12 +270,13 @@ app.get(
             res.status(500).json({data: {message: 'Ошибка сервера'}})
         }
     })
-
 app.post(
     '/api/team/favorite',
     async (req, res) => {
         try {
             const team = await Team.findOne({_id: req.body.teamId})
+            team.users.push(req.body.userName)
+            console.log(team)
             const user = await User.update({name: req.body.userName}, {$set: {team: team.fullName}})
             if (user.n) {
                 res.status(201).json({data: {message: `Команда ${team.fullName} дабавлена к пользователю ${req.body.userName}`}})
@@ -282,7 +287,6 @@ app.post(
             res.status(500).json({data: {message: 'Ошибка сервера'}})
         }
     })
-
 app.get(
     '/api/players/sync',
     async (req, res) => {
@@ -301,10 +305,9 @@ app.get(
             res.status(500).json({data: {message: 'Ошибка сервера'}})
         }
     })
-
 app.get(
     '/api/players/:userId',
-    async (req,res) => {
+    async (req, res) => {
         try {
             const userId = req.params.userId
             let user = await User.findOne({_id: userId})
@@ -319,8 +322,7 @@ app.get(
         }
     }
 )
-
-app.get (
+app.get(
     '/api/playground/:playgroundId',
     async (req, res) => {
         try {
@@ -338,21 +340,23 @@ app.get (
         }
     }
 )
-
 app.post(
     '/api/games/add',
     async (req, res) => {
         try {
             const reqGameData = req.body
-            const newEventAdmin = {
-            }
-            res.status(201).json({data: {message: `Игра находится у подтверждении у модератора`, eventData: reqGameData}})
+            const newEventAdmin = {}
+            res.status(201).json({
+                data: {
+                    message: `Игра находится у подтверждении у модератора`,
+                    eventData: reqGameData
+                }
+            })
         } catch (e) {
             res.status(500).json({data: {message: 'Ошибка сервера'}})
         }
     })
-
-app.get (
+app.get(
     '/api/games/sync',
     async (req, res) => {
         try {
@@ -363,8 +367,7 @@ app.get (
         }
     }
 )
-
-app.get (
+app.get(
     '/api/team/:teamId',
     async (req, res) => {
         try {
@@ -376,9 +379,6 @@ app.get (
         }
     }
 )
-
-
-
 
 const PORT = config.get('port') | 5000
 

@@ -56,5 +56,6 @@ type EventDataType = {
     userTeam: string | null,
     VS: string | null,
     enemyTeam: string | null,
-    date: string | null
+    date: string | null,
+    leader: string | null
 }
