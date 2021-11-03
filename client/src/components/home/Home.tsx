@@ -57,7 +57,7 @@ const UserPage: React.FC<any> = (userId: any) => {
 
     useEffect(() => {
         dispatch(getPlayerDataThunk(userId.userId))
-    })
+    },[])
 
     if (playerData.name !== undefined) {
         return (

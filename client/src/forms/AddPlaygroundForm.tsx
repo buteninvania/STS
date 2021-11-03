@@ -17,9 +17,9 @@ const AddPlaygroundForm: React.FC<any> = () => {
             city: '',
             address: '',
             institution: '',
-            playgroundName: '',
+            name: '',
             type: 'playground',
-            playgroundPosition: ''
+            position: ''
         },
         onSubmit: ((values: AddPlaygroundFormType) => {
             submit(values)
@@ -47,17 +47,17 @@ const AddPlaygroundForm: React.FC<any> = () => {
                    placeholder="Введите учреждение"
                    value={formik.values.institution}/>
             <input type="text"
-                   name="playgroundName"
-                   id="playgroundName"
+                   name="name"
+                   id="name"
                    onChange={formik.handleChange}
                    placeholder="Введите имя каким его обычно называют"
-                   value={formik.values.playgroundName}/>
+                   value={formik.values.name}/>
             <input type="text"
-                   name="playgroundPosition"
-                   id="playgroundPosition"
+                   name="position"
+                   id="position"
                    onChange={formik.handleChange}
                    placeholder="Введите скопированные координаты для быстрой проверки"
-                   value={formik.values.playgroundPosition}/>
+                   value={formik.values.position}/>
             <a target="blank" href="https://yandex.ru/maps/12/smolensk/?ll=32.045251%2C54.782635&z=12">
                 <img width={100}
                      src="https://w7.pngwing.com/pngs/458/516/png-transparent-yandex-maps-google-play-map-text-logo-map-thumbnail.png"
@@ -74,7 +74,7 @@ export type AddPlaygroundFormType = {
     city: string,
     address: string,
     institution: string | null,
-    playgroundName: string,
+    name: string,
     type: string | null
-    playgroundPosition: string | null
+    position: string | null
 }

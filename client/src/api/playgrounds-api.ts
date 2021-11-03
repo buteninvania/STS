@@ -30,6 +30,7 @@ export const playgroundsAPI = {
     },
 
     sendEventPlaygroundAdmin(playgroundData: AddPlaygroundFormType) {
+
         return instance.post(`api/adminevent/add`,{data: playgroundData}, {
             headers: {
                 'Content-Type': 'application/json'
