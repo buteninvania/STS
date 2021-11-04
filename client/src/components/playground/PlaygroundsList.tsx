@@ -24,9 +24,11 @@ const PlaygroundsList = () => {
                     {playgrounds.map((playground, index) => {
                         return <PlaygroundItem key={index} playground={playground}/>
                     })}
+                    <li className={p.item}>
+                        <NavLink to="/addplayground">Добавить площадку</NavLink>
+                    </li>
                 </ul>
             }
-            <NavLink to="/addplayground">Добавить площадку</NavLink>
         </div>
     )
 }

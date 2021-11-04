@@ -27,6 +27,12 @@
     padding: 10px;
     margin: 3px;
     position: relative;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.item:hover {
+    background-color: #787373;
 }
 
 .item .name {
@@ -102,19 +108,39 @@
 /* Игровые метки на карточке площадки */
 
 @keyframes gameWorkoutDotAnimation {
-    0% { background-color: #4acd79; }
-    25% { background-color: #84e28f; }
-    50% { background-color: #ecf3ec; }
-    75% { background-color: #0bf10b; }
-    100% { background-color: #4acd79; }
+    0% {
+        background-color: #4acd79;
+    }
+    25% {
+        background-color: #84e28f;
+    }
+    50% {
+        background-color: #ecf3ec;
+    }
+    75% {
+        background-color: #0bf10b;
+    }
+    100% {
+        background-color: #4acd79;
+    }
 }
 
 @keyframes gameWarDotAnimation {
-    0% { background-color: #725BA5; }
-    25% { background-color: #9186a1; }
-    50% { background-color: #c9c5d0; }
-    75% { background-color: #4c0bc9; }
-    100% { background-color: #725BA5; }
+    0% {
+        background-color: #725BA5;
+    }
+    25% {
+        background-color: #9186a1;
+    }
+    50% {
+        background-color: #c9c5d0;
+    }
+    75% {
+        background-color: #4c0bc9;
+    }
+    100% {
+        background-color: #725BA5;
+    }
 }
 
 .gameDot {

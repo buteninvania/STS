@@ -13,14 +13,18 @@ const Playground = () => {
 
     const dispatch = useDispatch()
     const playgroundId: any = useParams()
+
     const [showGamesCreationComponent, setShowGamesCreationComponent] = useState(false)
+
     useEffect(() => {
         dispatch(getPlaygroundDataThunk(playgroundId.name))
     }, [])
 
     const playgroundData = useSelector(getPlaygroundDataSelector)
     const userData = useSelector(getUserData)
+
     console.log('render Playground')
+
     if (playgroundData === null) {
         return <Preloader/>
     } else {
@@ -34,22 +38,19 @@ const Playground = () => {
                             <div className={p.distance}><span>400</span> метров от вас</div>
                         </div>
                         <div className={p.data}>
-                            <div>Подписчики: 12</div>
                             <div>Играют: 12</div>
-                            <div>Тренировочные: 12</div>
-                            <div>Соревновательные: 12</div>
                         </div>
                         <div className={p.actions}>
                             <button>Подойду</button>
                             <button onClick={() => setShowGamesCreationComponent(true)}>Создать игру</button>
                         </div>
                     </div>
-                    <div className={p.mapsWrapper}><PlaygroundMap/></div>
+                    <div className={p.mapsWrapper}><PlaygroundMap position={playgroundData.position}/></div>
                 </div>
                 {showGamesCreationComponent && userData !== null
-                                            && userData.userTeam !== null ? <GameCreation userTeam={userData.userTeam.teamName}
-                                                                                          cancelCreateGame={() => setShowGamesCreationComponent(false)}
-                                                                                          playgroundId={playgroundId}/> : null}
+                && userData.userTeam !== null ? <GameCreation userTeam={userData.userTeam.teamName}
+                                                              cancelCreateGame={() => setShowGamesCreationComponent(false)}
+                                                              playgroundId={playgroundId}/> : null}
             </div>
         )
     }
@@ -57,14 +58,48 @@ const Playground = () => {
 
 export default Playground;
 
-const PlaygroundMap = () => {
-    return (
-        <YMaps>
-            <Map width={700} height={500} defaultState={{ center: [54.774631, 32.061237], zoom: 18 }} >
-                <Placemark geometry={[54.774631, 32.061237]} />
-            </Map>
-        </YMaps>
-    )
+const PlaygroundMap: React.FC<PlaygroundMapPropsType> = ({position}) => {
+
+    const playgroundPosition = position.split(', ').map(item => Number(item))
+
+    console.log("Playground render")
+
+    if (playgroundPosition) {
+        return (
+            <YMaps>
+                <Map width={700} height={500} defaultState={{center: playgroundPosition, zoom: 17}}>
+                    <Placemark geometry={playgroundPosition}/>
+                </Map>
+            </YMaps>
+        )
+    } else {
+        return <Preloader/>
+    }
+
 }
 
+// const Accordion:React.FC<AccordionPropsType> = ({list}) => {
+//
+//     if (list.length > 0) {
+//         list.map((item, index) => {
+//             return(
+//                 <div key={index}>
+//                     {item}
+//                 </div>
+//             )
+//         })
+//     } else {
+//         return <Preloader/>
+//     }
+//
+//
+// }
+
+type AccordionPropsType = {
+    list: string[]
+}
+
+type PlaygroundMapPropsType = {
+    position: string
+}
 

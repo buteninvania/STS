@@ -12,7 +12,7 @@ router.use((req, res, next) => {
 
 router.get('/data', auth, async (req, res) => {
         try {
-            const userName = req.body.userName
+            const userName = req.body.token.userName
             const dataUser = await User.findOne({name: userName})
             res.status(200).json({data: dataUser})
         } catch (e) {
@@ -44,7 +44,24 @@ router.post('/register', async (req, res) => {
         } catch (e) {
             res.status(500).json({data: {message: 'Ошибка сервера'}})
         }
-    })
+})
+
+router.post('/avatar', auth, async (req, res) => {
+    try {
+        const userName = req.body.token.userName
+        let user = await User.findOne({name: userName})
+        if (!user) {
+            return res.status(400).json({message: "пользователь не найден"})
+        }
+        user.avatar = req.body.imgUrl
+        await user.save()
+        res.status(201).json({data: {imgUrl: req.body.imgUrl, message: 'Фото добавлено'}})
+    } catch (e) {
+        res.status(500).json({data: {message: 'Ошибка сервера'}})
+    }
+})
+
+
 
 module.exports = router
 

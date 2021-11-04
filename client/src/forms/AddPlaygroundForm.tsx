@@ -2,7 +2,7 @@ import React from "react";
 import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
 import {addPlaygroundThunk} from "../redux/playgrounds-page";
-
+import f from "./forms.module.css";
 
 const AddPlaygroundForm: React.FC<any> = () => {
 
@@ -58,11 +58,9 @@ const AddPlaygroundForm: React.FC<any> = () => {
                    onChange={formik.handleChange}
                    placeholder="Введите скопированные координаты для быстрой проверки"
                    value={formik.values.position}/>
-            <a target="blank" href="https://yandex.ru/maps/12/smolensk/?ll=32.045251%2C54.782635&z=12">
-                <img width={100}
-                     src="https://w7.pngwing.com/pngs/458/516/png-transparent-yandex-maps-google-play-map-text-logo-map-thumbnail.png"
-                     alt="a"/>
-            </a>
+            <a className={f.maps} target="blank" href="https://yandex.ru/maps/12/smolensk/?ll=32.045251%2C54.782635&z=12"/>
+
+
             <button type="submit">Отправить</button>
         </form>
     )

@@ -1,23 +1,14 @@
-import React, {useEffect} from "react";
+import React  from "react";
 import p from "./playground.module.css";
 import {PlaygroundsDataType} from "../../redux/playgrounds-page";
 import {useHistory} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {getUserName} from "../../redux/user-data-selector";
-import {addFavoritePlayground} from "../../redux/user-data-page";
 
 const PlaygroundItem: React.FC<PropsDataType> = ({playground}) => {
 
     const history = useHistory()
-    const userName = useSelector(getUserName)
-    const dispatch = useDispatch()
 
     const handleOnClick = (playgroundId: string) => {
         history.push(`/playground/${playgroundId}`)
-    }
-
-    const onClickPlayground = (playgroundId: string, userName: string | undefined) => {
-        dispatch(addFavoritePlayground(userName, playgroundId))
     }
 
     return (
@@ -29,7 +20,6 @@ const PlaygroundItem: React.FC<PropsDataType> = ({playground}) => {
             <div className={p.gameWrapper}>
                 { playground.game.length > 0 ? playground.game.map((item, index) => <GameItem key={index} date={item.date} VS={item.VS} gameType={item.gameType}/>) : null }
             </div>
-            {userName !== undefined ? <button onClick={() => onClickPlayground(playground._id, userName)}>+</button> : null}
         </li>
     )
 }

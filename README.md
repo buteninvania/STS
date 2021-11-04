@@ -1,1 +1,1 @@
-**Street traffic** - фан сервис уличного спортивного движения
+[![](./client/src/img/stS.png)]()

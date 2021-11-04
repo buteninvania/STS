@@ -1,10 +1,18 @@
 .header {
     display: flex;
     padding: 40px;
+    position: relative;
 }
 
 .avatar {
     max-width: 300px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.avatar:hover {
+    transition: .3s;
+    background-color: #787373;
 }
 
 .description {

@@ -3,25 +3,25 @@ import {NavLink, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserName} from "../../redux/user-data-selector";
 import {authActions} from "../../redux/user-data-page";
-import h from "./header.module.css"
-import logo from "./../../img/logo.png"
+import h from "./header.module.css";
 
-const Header = () => {
+const Header:React.FC<HeaderPropsType> = ({position}) => {
 
     const dispatch = useDispatch()
 
     const userId: paramsType = useParams()
 
-    const logoutButton = () => {
+    const logoutButtonHandler = () => {
         localStorage.removeItem('token')
         dispatch(authActions.logout())
     }
-
     const userName = useSelector(getUserName)
 
+    console.log('header render')
+
     return (
-        <div className={h.header}>
-            <NavLink to="/home"><img src={logo} alt="logo"/></NavLink>
+        <div className={position ? h.header+ " " + h.abs : h.header} >
+            <div className={h.logo}><NavLink to="/home"/></div>
             <div className={h.navbar}>
                 {userName !== undefined ? null : <NavLink activeClassName={h.active} to="/register">Регистрация</NavLink>}
                 {userId.name !== undefined ? <NavLink activeClassName={h.active} to="/home">----</NavLink>: null}
@@ -33,13 +33,17 @@ const Header = () => {
             </div>
             <div className={h.authorization}>
                 {(userName !== undefined) ? <div className={h.login}> {userName}</div> : null}
-                {(userName !== undefined) ? <button className={h.button} onClick={logoutButton}>Выйти</button> : <NavLink to="/register">Войдите</NavLink>}
+                {(userName !== undefined) ? <button className={h.button} onClick={logoutButtonHandler}>Выйти</button> : <NavLink to="/register">LOGIN</NavLink>}
             </div>
         </div>
     )
 }
 
 export default Header;
+
+type HeaderPropsType = {
+    position: boolean
+}
 
 type paramsType = {
     name: string | undefined

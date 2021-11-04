@@ -18,29 +18,30 @@ router.get('/sync', async (req, res) => {
 })
 
 router.post('/favorite', async (req, res) => {
-        try {
-            const team = await Teams.findOne({_id: req.body.teamId})
-            team.users.push(req.body.userName)
-            const user = await User.update({name: req.body.userName}, {$set: {team: team.fullName}})
-            if (user.n) {
-                res.status(201).json({data: {message: `Команда ${team.fullName} дабавлена к пользователю ${req.body.userName}`}})
-            } else {
-                res.status(400).json({data: {message: `Площадка не добавилась`}})
-            }
-        } catch (e) {
-            res.status(500).json({data: {message: 'Ошибка сервера'}})
+    try {
+        const team = await Teams.findOne({_id: req.body.teamId})
+        team.users.push(req.body.userName)
+        await team.save()
+        const user = await User.update({name: req.body.userName}, {$set: {team: team.fullName}})
+        if (user.n) {
+            res.status(201).json({data: {message: `Команда ${team.fullName} дабавлена к пользователю ${req.body.userName}`}})
+        } else {
+            res.status(400).json({data: {message: `Площадка не добавилась`}})
         }
-    })
+    } catch (e) {
+        res.status(500).json({data: {message: 'Ошибка сервера'}})
+    }
+})
 
 router.get('/:teamId', async (req, res) => {
-        try {
-            const teamId = req.params.teamId
-            const team = await Teams.findOne({_id: teamId})
-            res.status(200).json({data: team})
-        } catch (e) {
-            res.status(500).json({data: {message: 'Ошибка сервера'}})
-        }
-    })
+    try {
+        const teamId = req.params.teamId
+        const team = await Teams.findOne({_id: teamId})
+        res.status(200).json({data: team})
+    } catch (e) {
+        res.status(500).json({data: {message: 'Ошибка сервера'}})
+    }
+})
 
 module.exports = router
 

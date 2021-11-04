@@ -81,5 +81,5 @@ export type PlaygroundsDataType = {
     type: string | null,
     _id: string
     game: GameDataType[],
-    playgroundPosition: string | null
+    position: string
 }

@@ -3,8 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getEventsThunk, sendResponseEventAdminThunk} from "../../redux/events-page";
 import {getPlaygroundsSelector} from "../../redux/events-data-selector";
 
-
-const AdminEventTeam: React.FC<AdminEventTeamPropsDataType> = ({ eventId, name, fullName, leader, type, adminResponseSendingHandler}) => {
+const AdminEventTeam: React.FC<AdminEventTeamPropsDataType> = ({eventId, name, fullName, leader, type, adminResponseSendingHandler}) => {
     return (
         <div>
             {name} {fullName} {leader} {type}
@@ -13,15 +12,21 @@ const AdminEventTeam: React.FC<AdminEventTeamPropsDataType> = ({ eventId, name, 
         </div>
     )
 }
-const AdminEventGame: React.FC<AdminEventTeamPropsDataType> = ({name, fullName, leader, type}) => {
+const AdminEventGame: React.FC<AdminEventGamePropsDataType> = ({
+                                                                   type,
+                                                                   gameType,
+                                                                   date,
+                                                                   enemyTeam,
+                                                                   userTeam,
+                                                                   playground,
+                                                                   VS
+                                                               }) => {
     return (
         <div>
-            {name} {fullName} {leader} {type}
+            {`Тип: ${type} Команда №1 - ${userTeam} против ${enemyTeam} тип игры - ${gameType} колличество игроков (${VS}) на площадке ${playground} дата: ${date}`}
         </div>
     )
 }
-
-
 
 
 const AdminEvent: React.FC = () => {
@@ -42,10 +47,15 @@ const AdminEvent: React.FC = () => {
             События администратора
             {
                 (events.length > 0) ? events.map((item, index) => {
-                    if(item.type === 'team') {
-                        return <AdminEventTeam eventId={item.id} adminResponseSendingHandler={adminResponseSendingHandler} type={item.type} key={index} fullName={item.fullName} name={item.name} leader={item.leader}/>
+                    if (item.type === 'team') {
+                        return <AdminEventTeam eventId={item.id}
+                                               adminResponseSendingHandler={adminResponseSendingHandler}
+                                               type={item.type} key={index} fullName={item.fullName} name={item.name}
+                                               leader={item.leader}/>
                     } else if (item.type === 'game') {
-
+                        return <AdminEventGame type={item.type} key={index} date={item.date} VS={item.VS}
+                                               gameType={item.gameType} playground={item.playground}
+                                               userTeam={item.userTeam} enemyTeam={item.enemyTeam}/>
                     }
                     return <div key={index}>
                         Тип события: `{item.type}`,
@@ -54,8 +64,6 @@ const AdminEvent: React.FC = () => {
                         {item.institution !== undefined ? `Учреждение площадки: ${item.institution}` : null}
                         {item.fullName !== undefined ? `Полное название команды: ${item.fullName}` : null}
                         {item.name !== undefined ? `Отоброжаемое имя: ${item.name}` : null}
-                        {item.type === 'game' ? `Команда №1 - ${item.userTeam} против ${item.enemyTeam} тип игры - ${item.gameType} колличество игроков (${item.VS}) на площадке ${item.playground}` : null}
-                        {item.date !== undefined ? `Дата: ${item.date}` : null}
                         {item.leader !== undefined ? `Лидер: ${item.leader}` : null}
                         <button onClick={() => adminResponseSendingHandler(item.id, true)}>Разрешить</button>
                         <button onClick={() => adminResponseSendingHandler(item.id, false)}>Отклонить</button>
@@ -78,5 +86,11 @@ type AdminEventTeamPropsDataType = {
     eventId: string
 }
 type AdminEventGamePropsDataType = {
-
+    type: string
+    userTeam: string | null
+    enemyTeam: string | null
+    gameType: string | null
+    VS: string | null
+    playground: string | null
+    date: string | null
 }
