@@ -41,7 +41,7 @@ const GameCreation: React.FC<GameCreationPropsType> = ({cancelCreateGame, userTe
             </div>
             <input type="submit"/>
             <button onClick={() => cancelCreateGame()}>Отменить</button>
-            {showTeamList ? <TeamList selectTeam={selectEnemyTeam}/> : null}
+            {showTeamList ? <TeamList userTeam={userTeam} selectTeam={selectEnemyTeam}/> : null}
         </form>
     )
 }

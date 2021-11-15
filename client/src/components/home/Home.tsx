@@ -7,6 +7,7 @@ import userImg from "./../../img/user-image.png"
 import {getPlayerDataThunk} from "../../redux/players-page";
 import {getPlayerDataSelector} from "../../redux/players-data-selector"
 import ChangePhotoPopupForms from "../popups/ChangePhotoPopupForms";
+import HomeBody from './HomeBody';
 
 const Home = () => {
 
@@ -17,16 +18,20 @@ const Home = () => {
 
     if (userId.name === undefined && userData) {
         return (
-            <div className={h.header}>
-                <div className={h.avatar} onClick={() => setShowPopup(true)}>
-                    <img src={userImg} alt="userImg"/>
+            <div>
+                <div className={h.header}>
+                    <div className={h.avatar} onClick={() => setShowPopup(true)}>
+                        <img src={userImg} alt="userImg"/>
+                    </div>
+                    <div className={h.description}>
+                        <div className={h.login}>{userData.userName}</div>
+                        {userData.userTeam ? <div className={h.team}><div>{userData.userTeam.teamName}</div></div> : null}
+                    </div>
+                    {showPopup ? <ChangePhotoPopupForms closePopup={() => setShowPopup(false)}/> : null}
                 </div>
-                <div className={h.description}>
-                    <div className={h.login}>{userData.userName}</div>
-                    {userData.userTeam ? <div className={h.team}><div>{userData.userTeam.teamName}</div></div> : null}
-                </div>
-                {showPopup ? <ChangePhotoPopupForms closePopup={() => setShowPopup(false)}/> : null}
+                <HomeBody/>
             </div>
+
         )
     } else if (userId.name !== undefined) {
         return (

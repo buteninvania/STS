@@ -6,6 +6,7 @@ const scheme = new Schema({
     avatar: {type: String, required: false},
     team: {type: String, required: false},
     playground: {type: String, required: false},
+    notifications: [Schema.Types.Mixed]
 })
 
 module.exports = model('User', scheme)

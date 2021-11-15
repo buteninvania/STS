@@ -4,6 +4,7 @@ const AdminEvents = require('./../models/AdminEvents')
 const Playground = require('./../models/Playgrounds')
 const Team = require('./../models/Teams')
 const Games = require('./../models/Games')
+const Users = require('./../models/User')
 
 router.use((req, res, next) => {
     console.log('Route type: /adminevent')
@@ -136,7 +137,21 @@ router.post('/response', async (req, res) => {
                     const gamePlayground = await Playground.findOne({_id: event.adminEvents.playground})
                     gamePlayground.game.push(game)
                     await gamePlayground.save()
-                    await AdminEvents.findOneAndDelete({_id: event._id})
+                    //await AdminEvents.findOneAndDelete({_id: event._id})
+                    //Раскинуть уведомления всем участникам игры
+                    let usersTeam1 = await Team.findOne({fullName: event.adminEvents.userTeam})
+                    let usersTeam2 = await Team.findOne({fullName: event.adminEvents.enemyTeam})
+                    console.log(usersTeam1)
+                    console.log(usersTeam2)
+                    let usersSubscribers = [...usersTeam1.users, ...usersTeam2.users]
+                    for(let userSubscriber of usersSubscribers) {
+                        userSubscriber = await Users.findOne({name: userSubscriber})
+                        userSubscriber.notifications.push(game)
+                        await userSubscriber.save()
+                        console.log(userSubscriber)
+                    }
+
+                    // ..............
                     res.status(201).json({data: {message: `Мероприятие создано`}})
                     break
                 default:
