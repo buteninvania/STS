@@ -3,6 +3,7 @@ import {RegisterFormsValuesType} from "../forms/RegisterForm";
 import {authAPI} from "../api/auth-api";
 import {playgroundsAPI} from "../api/playgrounds-api";
 import {teamsAPI} from "../api/teams-api";
+import {notificationApi} from '../api/notification-api';
 
 const initialState = {
     userData: null as UserDataType | null,
@@ -57,6 +58,7 @@ export const loginThunk = (values: RegisterFormsValuesType): ThunkType => async 
 export const getDataUserThunk = (): ThunkType => async (dispatch) => {
     await authAPI.checkAuth()
         .then(res => {
+
             const userData: UserDataType = {
                 isAuth: true,
                 userPlayground: res.playground,
@@ -65,7 +67,8 @@ export const getDataUserThunk = (): ThunkType => async (dispatch) => {
                     teamName:res.team,
                     teamAvatar: null
                 },
-                userName: res.name
+                userName: res.name,
+                notifications: res.notifications
             }
             dispatch(authActions.setIsAuth(userData))
         })
@@ -90,6 +93,16 @@ export const addFavoriteTeams = (userName: string | undefined, teamId: string): 
         .catch(err => console.log(err))
 }
 
+export const deleteNotificationThunk = (userName:string, notificationID: string): ThunkType => async (dispatch) => {
+    await notificationApi.deleteNotification(userName, notificationID)
+        .then(res => {
+            dispatch(getDataUserThunk())
+        })
+        .catch(err => {
+
+        })
+}
+
 type InitialStateType = typeof initialState
 type ActionsType = InferActionsTypes<typeof authActions>
 type ThunkType = BaseThunkType<ActionsType>
@@ -99,8 +112,19 @@ export type UserDataType = {
     avatar: string | null,
     userTeam: UserTeamType | null
     userName: string
+    notifications: Array<NotificationType>
 }
 type UserTeamType = {
     teamAvatar: string | null,
     teamName: string
+}
+
+export type NotificationType = {
+    VS: string
+    date: string
+    enemyTeam: string
+    gameType: string
+    playground: string
+    userTeam: string
+    _id: string
 }

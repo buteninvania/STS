@@ -9,6 +9,7 @@ const teamRouter = require('./routes/team.routes')
 const playersRouter = require('./routes/players.routes')
 const gamesRouter = require('./routes/games.routes')
 const admineventRouter = require('./routes/adminevent.routes')
+const notificationRouter = require('./routes/notification.routes')
 
 app.use(express.json({extended: true}))
 app.use(cors())
@@ -18,6 +19,7 @@ app.use('/api/team', teamRouter)
 app.use('/api/players', playersRouter)
 app.use('/api/games', gamesRouter)
 app.use('/api/adminevent', admineventRouter)
+app.use('/api/notification', notificationRouter)
 
 const PORT = config.get('port') | 5000
 

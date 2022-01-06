@@ -4,6 +4,7 @@ const User = require('./../models/User')
 const jwt = require('jsonwebtoken')
 const config = require('config')
 const auth = require('./../middleware/auth.middleware')
+const Playground = require("./../models/Playgrounds");
 
 router.use((req, res, next) => {
     console.log('Route type: /auth')
@@ -14,6 +15,12 @@ router.get('/data', auth, async (req, res) => {
         try {
             const userName = req.body.token.userName
             const dataUser = await User.findOne({name: userName})
+            /* clear notifications*/
+            let playgroundsId = [... new Set(dataUser.notifications.map(n => n.playground))]
+            const playground = await Playground.findOne({_id: playgroundsId[0]})
+            console.log(playground)
+            /**********************/
+
             res.status(200).json({data: dataUser})
         } catch (e) {
             res.status(500).json({data: {message: 'Ошибка сервера'}})

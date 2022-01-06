@@ -141,14 +141,11 @@ router.post('/response', async (req, res) => {
                     //Раскинуть уведомления всем участникам игры
                     let usersTeam1 = await Team.findOne({fullName: event.adminEvents.userTeam})
                     let usersTeam2 = await Team.findOne({fullName: event.adminEvents.enemyTeam})
-                    console.log(usersTeam1)
-                    console.log(usersTeam2)
                     let usersSubscribers = [...usersTeam1.users, ...usersTeam2.users]
-                    for(let userSubscriber of usersSubscribers) {
-                        userSubscriber = await Users.findOne({name: userSubscriber})
-                        userSubscriber.notifications.push(game)
-                        await userSubscriber.save()
-                        console.log(userSubscriber)
+                    for(let user of usersSubscribers) {
+                        user = await Users.findOne({name: user})
+                        user.notifications.push(game)
+                        await user.save()
                     }
 
                     // ..............

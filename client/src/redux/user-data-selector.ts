@@ -15,3 +15,7 @@ export const getUserData = (state: AppStateType) => {
 export const getUserPlayground = (state: AppStateType) => {
     return state.userData.userData?.userPlayground
 }
+
+export const getUserNotifications = (state: AppStateType) => {
+    return state.userData.userData?.notifications
+}

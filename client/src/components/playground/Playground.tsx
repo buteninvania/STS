@@ -8,6 +8,7 @@ import Preloader from "../preloader/Preloader";
 import GameCreation from "../games/GameCreation";
 import {getUserData} from "../../redux/user-data-selector";
 import {YMaps, Map, Placemark} from 'react-yandex-maps';
+import {ListGames} from '../games/ListGames';
 
 const Playground = () => {
 
@@ -44,6 +45,7 @@ const Playground = () => {
                             <button>Подойду</button>
                             <button onClick={() => setShowGamesCreationComponent(true)}>Создать игру</button>
                         </div>
+                        {playgroundData.game.length > 0 && <ListGames games={playgroundData.game}/>}
                     </div>
                     <div className={p.mapsWrapper}><PlaygroundMap position={playgroundData.position}/></div>
                 </div>

@@ -64,7 +64,7 @@ export const addPlaygroundThunk = (playgroundData: AddPlaygroundFormType):ThunkT
 type InitialStateType = typeof initialState
 type ActionsType = InferActionsTypes<typeof playgroundActions>
 type ThunkType = BaseThunkType<ActionsType>
-type GameDataType = {
+export type GameDataType = {
     _id: string
     playground: string
     gameType: string

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from 'react';
 import {NavLink, Redirect, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserData} from "../../redux/user-data-selector";
@@ -8,13 +8,23 @@ import {getPlayerDataThunk} from "../../redux/players-page";
 import {getPlayerDataSelector} from "../../redux/players-data-selector"
 import ChangePhotoPopupForms from "../popups/ChangePhotoPopupForms";
 import HomeBody from './HomeBody';
+import {deleteNotificationThunk, getDataUserThunk} from '../../redux/user-data-page';
 
 const Home = () => {
 
     const [showPopup, setShowPopup] = useState(false)
-
     const userData = useSelector(getUserData)
     const userId: paramsType = useParams()
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+       dispatch(getDataUserThunk())
+    }, [])
+
+    const deleteNotification = (userName: string, notificationID: string) => {
+        dispatch(deleteNotificationThunk(userName, notificationID))
+    }
 
     if (userId.name === undefined && userData) {
         return (
@@ -29,7 +39,7 @@ const Home = () => {
                     </div>
                     {showPopup ? <ChangePhotoPopupForms closePopup={() => setShowPopup(false)}/> : null}
                 </div>
-                <HomeBody/>
+                <HomeBody userName={userData.userName} deleteNotification={deleteNotification} team={userData.userTeam?.teamName}/>
             </div>
 
         )
