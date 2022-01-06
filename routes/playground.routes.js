@@ -52,6 +52,19 @@ router.get('/:playgroundId', async (req, res) => {
         }
     })
 
+router.delete('/:playgroundID&:gameID', async (req, res) => {
+    try {
+        const playgroundID = req.params.playgroundID
+        const gameID = req.params.gameID
+        const playground = await Playground.findOne({_id: playgroundID})
+        const gameFiltred = playground.game.filter(g => String(g._id) !== gameID)
+        const test = await Playground.update({_id: playgroundID}, {$set: {game: gameFiltred}})
+        res.status(200).json({message: 'Игра удалена'})
+    } catch (e) {
+
+    }
+})
+
 module.exports = router
 
 function getDateFormat(date) {

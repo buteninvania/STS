@@ -9,11 +9,16 @@ import GameCreation from "../games/GameCreation";
 import {getUserData} from "../../redux/user-data-selector";
 import {YMaps, Map, Placemark} from 'react-yandex-maps';
 import {ListGames} from '../games/ListGames';
+import {deleteGamesThunk} from '../../redux/games-page';
 
 const Playground = () => {
 
     const dispatch = useDispatch()
     const playgroundId: any = useParams()
+
+    const deleteGame = (playgroundID: string, gameID: string) => {
+        dispatch(deleteGamesThunk(playgroundID, gameID))
+    }
 
     const [showGamesCreationComponent, setShowGamesCreationComponent] = useState(false)
 
@@ -45,7 +50,7 @@ const Playground = () => {
                             <button>Подойду</button>
                             <button onClick={() => setShowGamesCreationComponent(true)}>Создать игру</button>
                         </div>
-                        {playgroundData.game.length > 0 && <ListGames games={playgroundData.game}/>}
+                        {playgroundData.game.length > 0 && <ListGames deleteGame={deleteGame} games={playgroundData.game}/>}
                     </div>
                     <div className={p.mapsWrapper}><PlaygroundMap position={playgroundData.position}/></div>
                 </div>

@@ -1,6 +1,8 @@
 import {BaseThunkType, InferActionsTypes} from "./redux-store";
 import {gamesAPI} from "../api/games-api";
 import {GameCreationFormValuesInterface} from "../components/games/GameCreation";
+import {getDataUserThunk} from './user-data-page';
+import {getPlaygroundsThunk} from './playgrounds-page';
 
 const initialState : {games: GamesDataType[]} = {
     games: [],
@@ -49,6 +51,14 @@ export const sendEventAddedGamesThunk = (gamesData: GameCreationFormValuesInterf
            console.log(res)
        })
        .catch(err => console.log(err))
+}
+
+export const deleteGamesThunk = (playgroundID: string, gameID: string): ThunkType => async (dispatch) => {
+    await gamesAPI.deleteGame(playgroundID, gameID)
+        .then(res => {
+            debugger
+            dispatch(getPlaygroundsThunk())
+        })
 }
 
 type InitialStateType = typeof initialState

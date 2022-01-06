@@ -68,8 +68,6 @@ router.post('/avatar', auth, async (req, res) => {
     }
 })
 
-
-
 module.exports = router
 
 

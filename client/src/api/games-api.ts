@@ -24,4 +24,15 @@ export const gamesAPI = {
                 console.log(res.data)
             })
     },
+
+    deleteGame(playgroundID: string, gamesID: string) {
+        return instance.delete(`api/playground/${playgroundID}&${gamesID}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => {
+                debugger
+            })
+    }
 }
