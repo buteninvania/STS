@@ -37,7 +37,6 @@ export const playgroundActions = {
 }
 
 export const getPlaygroundsThunk = ():ThunkType => async (dispatch) => {
-    debugger
         await playgroundsAPI.getPlaygrounds()
             .then(res => {
                 const playgrounds = res.playgrounds

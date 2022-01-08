@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter as Router} from 'react-router-dom'
 import {Provider, useDispatch} from "react-redux";
 import store from "./redux/redux-store";
@@ -20,7 +20,6 @@ const StreetTrafficProject = () => {
 
 const App = () => {
 
-    const [headerAbsolutePosition, setHeaderAbsolutePosition] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -30,16 +29,11 @@ const App = () => {
 
     const content = useRoutesContent()
 
-    const test = (e: React.WheelEvent) => {
-        if(window.pageYOffset < 80) {
-            return setHeaderAbsolutePosition(false)
-        }
-        return e.deltaY > 0 ? setHeaderAbsolutePosition(true) : null
-    }
+    console.log('APP')
 
     return (
-        <div className="wrapper" onWheel={(e) => test(e)}>
-            <Header position={headerAbsolutePosition}/>
+        <div className="wrapper" >
+            <Header/>
             <div className="main">{content}</div>
             <Footer/>
         </div>

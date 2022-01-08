@@ -5,7 +5,7 @@ import {getUserName} from "../../redux/user-data-selector";
 import {authActions} from "../../redux/user-data-page";
 import h from "./header.module.css";
 
-const Header:React.FC<HeaderPropsType> = ({position}) => {
+const Header:React.FC<HeaderPropsType> = ({}) => {
 
     const dispatch = useDispatch()
 
@@ -17,10 +17,10 @@ const Header:React.FC<HeaderPropsType> = ({position}) => {
     }
     const userName = useSelector(getUserName)
 
-    console.log('header render')
+    console.log('Header')
 
     return (
-        <div className={position ? h.header+ " " + h.abs : h.header} >
+        <div  className={h.header} >
             <div className={h.logo}><NavLink to="/home"/></div>
             <div className={h.navbar}>
                 {userName !== undefined ? null : <NavLink activeClassName={h.active} to="/register">Регистрация</NavLink>}
@@ -42,7 +42,7 @@ const Header:React.FC<HeaderPropsType> = ({position}) => {
 export default Header;
 
 type HeaderPropsType = {
-    position: boolean
+
 }
 
 type paramsType = {

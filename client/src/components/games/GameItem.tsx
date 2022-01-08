@@ -2,14 +2,14 @@
 import React from 'react';
 import {GameDataType} from '../../redux/playgrounds-page';
 
-export const GameItem: React.FC<GameItemPropsType> = ({game, userName, deleteGame}) => {
+export const GameItem: React.FC<GameItemPropsType> = React.memo(({game, userName, deleteGame}) => {
     return (
         <li>
             <span>{game.gameType}</span>
             {userName === 'admin' && <button onClick={() => deleteGame(game.playground, game._id)}>Удалить игру</button>}
         </li>
     )
-}
+})
 
 type GameItemPropsType = {
     game: GameDataType

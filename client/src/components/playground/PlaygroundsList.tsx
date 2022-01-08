@@ -7,13 +7,16 @@ import p from "./playground.module.css";
 import PlaygroundItem from "./PlaygroundItem";
 
 const PlaygroundsList = () => {
-    console.log('PlaygroundsList render')
+
+
     const playgrounds = useSelector(getPlaygroundsSelector)
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getPlaygroundsThunk())
     }, [])
+
+    console.log('PlaygroundsList')
 
     return (
         <div className={p.wrapper}>

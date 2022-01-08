@@ -70,6 +70,8 @@ const AdminEvent: React.FC = () => {
         dispatch(sendResponseEventAdminThunk(eventId, response))
     }
 
+    console.log('AdminEvent')
+
     useEffect(() => {
         dispatch(getEventsThunk())
     }, [])
@@ -79,24 +81,23 @@ const AdminEvent: React.FC = () => {
             События администратора
             {
                 (events.length > 0) ? events.map((item, index) => {
-                    if (item.type === 'team') {
-                        return <AdminEventTeam eventId={item.id}
-                                               adminResponseSendingHandler={adminResponseSendingHandler}
-                                               type={item.type} key={index} fullName={item.fullName} name={item.name}
-                                               leader={item.leader}/>
-                    } else if (item.type === 'game') {
-                        return <AdminEventGame type={item.type} key={index} date={item.date} VS={item.VS}
-                                               gameType={item.gameType} playground={item.playground}
-                                               userTeam={item.userTeam} enemyTeam={item.enemyTeam} eventId={item.id}
-                                               adminResponseSendingHandler={adminResponseSendingHandler}/>
-                    } else if (item.type === 'playground') {
-                        return <AdminEventPlayground type={item.type} key={index} eventId={item.id} name={item.name}
-                                                     city={item.city} institution={item.institution}
-                                                     address={item.address}
-                                                     adminResponseSendingHandler={adminResponseSendingHandler}/>
-                    }
-
-                }) : <div>ничего нет</div>
+                    switch (item.type) {
+                        case 'team':
+                            return <AdminEventTeam eventId={item.id}
+                                                   adminResponseSendingHandler={adminResponseSendingHandler}
+                                                   type={item.type} key={index} fullName={item.fullName} name={item.name}
+                                                   leader={item.leader}/>
+                        case 'game':
+                            return <AdminEventGame type={item.type} key={index} date={item.date} VS={item.VS}
+                                                   gameType={item.gameType} playground={item.playground}
+                                                   userTeam={item.userTeam} enemyTeam={item.enemyTeam} eventId={item.id}
+                                                   adminResponseSendingHandler={adminResponseSendingHandler}/>
+                        case 'playground':
+                            return <AdminEventPlayground type={item.type} key={index} eventId={item.id} name={item.name}
+                                                         city={item.city} institution={item.institution}
+                                                         address={item.address}
+                                                         adminResponseSendingHandler={adminResponseSendingHandler}/>
+                    }}) : <div>ничего нет</div>
             }
         </div>
     )
