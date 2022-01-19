@@ -7,7 +7,11 @@ export const eventsAPI = {
                 'Content-Type': 'application/json'
             }
         })
-            .then(res => res.data.data)
+            .then(res => ({
+                playgroundEvents: res.data.data.filter((e: {type:string}) => e.type === 'playground'),
+                teamEvents: res.data.data.filter((e: {type:string}) => e.type === 'team'),
+                gameEvents:res.data.data.filter((e: {type:string}) => e.type === 'game')
+            }))
     },
 
     sendResponseEventAdmin(eventId: string, response: boolean) {

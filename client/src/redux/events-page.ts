@@ -24,14 +24,6 @@ export const eventsActions = {
     } as const),
 }
 
-export const getEventsThunk = ():ThunkType => async (dispatch) => {
-        await eventsAPI.getEvents()
-            .then(res => {
-                dispatch(eventsActions.setEvents(res))
-            })
-            .catch(err => console.log(err))
-}
-
 export const sendResponseEventAdminThunk = (eventId: string, response: boolean):ThunkType => async (dispatch) => {
     await eventsAPI.sendResponseEventAdmin(eventId, response)
         .then(res => {

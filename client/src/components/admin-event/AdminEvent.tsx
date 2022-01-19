@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getEventsThunk, sendResponseEventAdminThunk} from '../../redux/events-page';
 import {getPlaygroundsSelector} from '../../redux/events-data-selector';
+import {getAdminEventsTC} from '../../redux/events-admin/events-admin-reducer';
 
 const AdminEventTeam: React.FC<AdminEventTeamPropsDataType> = ({
                                                                    eventId,
@@ -71,9 +72,9 @@ const AdminEvent: React.FC = () => {
     }
 
     console.log('AdminEvent')
-
+    debugger
     useEffect(() => {
-        dispatch(getEventsThunk())
+        dispatch(getAdminEventsTC())
     }, [])
 
     return (
