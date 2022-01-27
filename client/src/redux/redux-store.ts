@@ -6,6 +6,7 @@ import {teamDataReducer} from "./team-page";
 import {eventDataReducer} from "./events-page";
 import {playersDataReducer} from "./players-page";
 import {gamesDataReducer} from "./games-page";
+import {adminEventsReducer} from './events-admin/events-admin-reducer';
 
 const rootReducer = combineReducers({
     userData: userDataReducer,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     teamPage: teamDataReducer,
     eventPage: eventDataReducer,
     playerPage: playersDataReducer,
-    gamesPage: gamesDataReducer
+    gamesPage: gamesDataReducer,
+    adminEventsPage: adminEventsReducer
 })
 
 type RootReducerType = typeof rootReducer

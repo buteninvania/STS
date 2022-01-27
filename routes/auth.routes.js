@@ -21,7 +21,15 @@ router.get('/data', auth, async (req, res) => {
             console.log(playground)
             /**********************/
 
-            res.status(200).json({data: dataUser})
+            const responseData = {
+                avatar: dataUser.avatar,
+                name: dataUser.name,
+                notifications: dataUser.notifications,
+                team: dataUser.team,
+                id: dataUser._id,
+                playground: playground
+            }
+            res.status(200).json(responseData)
         } catch (e) {
             res.status(500).json({data: {message: 'Ошибка сервера'}})
         }
@@ -35,7 +43,7 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({message: "пользователь не найден"})
         }
         const token = jwt.sign({userName}, config.get('jwtSecret'), {expiresIn: '2h'})
-        res.status(200).json({data: {name: user.name, playground: user.playground, token}})
+        res.status(200).json({name: user.name, token})
     } catch (e) {
         res.status(500).json({data: {message: 'Ошибка сервера'}})
     }
@@ -47,7 +55,7 @@ router.post('/register', async (req, res) => {
             await user.save()
             const userName = user.name
             const token = jwt.sign({userName}, config.get('jwtSecret'), {expiresIn: '2h'})
-            res.status(201).json({data: {name: req.body.name, message: 'Пользователь создан', token}})
+            res.status(201).json({name: req.body.name, message: 'Пользователь создан', token})
         } catch (e) {
             res.status(500).json({data: {message: 'Ошибка сервера'}})
         }

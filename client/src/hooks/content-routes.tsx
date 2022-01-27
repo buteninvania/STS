@@ -5,10 +5,10 @@ import Authorization from "../components/authorization/Аuthorization";
 import PlaygroundsList from "../components/playground/PlaygroundsList";
 import AddPlaygroundForm from "../forms/AddPlaygroundForm";
 import Team from "../components/team/Team";
-import AdminEvent from "../components/admin-event/AdminEvent";
 import Players from "../components/players/Players";
 import Playground from "../components/playground/Playground";
 import TeamPage from "../components/team/TeamPage";
+import {AdminEvent} from '../components/admin-event/AdminEvent';
 
 export const useRoutesContent = () => {
     return (

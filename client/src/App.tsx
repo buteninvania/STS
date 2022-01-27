@@ -18,14 +18,13 @@ const StreetTrafficProject = () => {
     )
 };
 
-const App = () => {
-
+const App = React.memo(() => {
 
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getDataUserThunk())
-    })
+    }, [dispatch])
 
     const content = useRoutesContent()
 
@@ -38,6 +37,6 @@ const App = () => {
             <Footer/>
         </div>
     )
-}
+})
 
 export default StreetTrafficProject;

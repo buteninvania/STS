@@ -58,7 +58,7 @@ export const loginThunk = (values: RegisterFormsValuesType): ThunkType => async 
 export const getDataUserThunk = (): ThunkType => async (dispatch) => {
     await authAPI.checkAuth()
         .then(res => {
-
+            debugger
             const userData: UserDataType = {
                 isAuth: true,
                 userPlayground: res.playground,
