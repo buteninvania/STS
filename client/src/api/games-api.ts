@@ -1,25 +1,24 @@
 import {instance} from './api'
-import {EventGamesDataType} from "../redux/games-page";
+import {EventGamesDataType} from '../redux/games-page';
 
+/**
+ * Games API (get, add, delete)
+ */
 export const gamesAPI = {
+    /**
+     *  method that receives a list of games on the site from the server
+     */
     getGames() {
-        return instance.get(`api/games/sync`, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(res => {
-                debugger
-                 return res.data.data
-            })
+        return instance.get(`api/games/sync`)
+            .then(res => res.data.data)
     },
 
+    /**
+     * @param eventAddedGames new game data
+     * method adds a new game to the playground
+     */
     addGames(eventAddedGames: EventGamesDataType) {
-        return instance.post(`/api/adminevent/add`, {data: eventAddedGames}, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
+        return instance.post(`/api/adminevent/add`, {data: eventAddedGames})
             .then(res => {
                 console.log(res.data)
             })
