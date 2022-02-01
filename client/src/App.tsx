@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react';
-import {BrowserRouter as Router} from 'react-router-dom'
+import React, {useEffect} from "react";
+import {BrowserRouter as Router} from "react-router-dom";
 import {Provider, useDispatch} from "react-redux";
 import store from "./redux/redux-store";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import {useRoutesContent} from "./hooks/content-routes";
 import {getDataUserThunk} from "./redux/user-data-page";
-import "./app.css"
+import "./app.css";
 
 const StreetTrafficProject = () => {
     return (
@@ -18,7 +18,7 @@ const StreetTrafficProject = () => {
     )
 };
 
-const App = React.memo(() => {
+const App = () => {
 
     const dispatch = useDispatch()
 
@@ -37,6 +37,6 @@ const App = React.memo(() => {
             <Footer/>
         </div>
     )
-})
+}
 
 export default StreetTrafficProject;

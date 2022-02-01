@@ -2,6 +2,11 @@ import {BaseThunkType, InferActionsTypes} from './redux-store'
 import {playgroundsAPI} from "../api/playgrounds-api";
 import {AddPlaygroundFormType} from "../forms/AddPlaygroundForm";
 
+const ActionType = {
+    SET_PLAYGROUNDS_DATA: 'ButInProject/playground-page/SET-PLAYGROUNDS-DATA',
+    SET_PLAYGROUND_DATA: "ButInProject/playground-page/SET-PLAYGROUND-DATA",
+} as const
+
 const initialState : {playgrounds: PlaygroundsDataType[], playgroundData: any} = {
     playgrounds: [],
     playgroundData: null as PlaygroundsDataType | null
@@ -9,13 +14,13 @@ const initialState : {playgrounds: PlaygroundsDataType[], playgroundData: any} =
 
 export const playgroundDataReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case "ButInProject/playground-page/SET-PLAYGROUNDS-DATA":
+        case ActionType.SET_PLAYGROUNDS_DATA:
             return {
                 ...state,
                 playgrounds: [...action.playgrounds],
                 
             }
-        case "ButInProject/playground-page/SET-PLAYGROUND-DATA":
+        case ActionType.SET_PLAYGROUND_DATA:
             return {
                 ...state,
                 playgroundData: action.playgroundData
@@ -27,11 +32,11 @@ export const playgroundDataReducer = (state = initialState, action: ActionsType)
 
 export const playgroundActions = {
     setPlaygrounds: (playgrounds: []) => ({
-        type: "ButInProject/playground-page/SET-PLAYGROUNDS-DATA",
+        type: ActionType.SET_PLAYGROUNDS_DATA,
         playgrounds
     } as const),
     setPlaygroundData: (playgroundData: PlaygroundsDataType) => ({
-        type: "ButInProject/playground-page/SET-PLAYGROUND-DATA",
+        type: ActionType.SET_PLAYGROUND_DATA,
         playgroundData
     } as const),
 }

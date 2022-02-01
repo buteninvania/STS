@@ -63,7 +63,7 @@ export const addTeamsThunk = (teamData: TeamDataFormType): ThunkType => async (d
 type InitialStateType = typeof initialState
 type ActionsType = InferActionsTypes<typeof teamsActions>
 type ThunkType = BaseThunkType<ActionsType>
-type TeamDataType = {
+export type TeamDataType = {
     _id: string,
     name: string,
     fullName: string,

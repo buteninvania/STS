@@ -4,7 +4,7 @@ import Home from "../components/home/Home";
 import Authorization from "../components/authorization/Аuthorization";
 import PlaygroundsList from "../components/playground/PlaygroundsList";
 import AddPlaygroundForm from "../forms/AddPlaygroundForm";
-import Team from "../components/team/Team";
+import Teams from "../components/team/Teams";
 import Players from "../components/players/Players";
 import Playground from "../components/playground/Playground";
 import TeamPage from "../components/team/TeamPage";
@@ -20,7 +20,7 @@ export const useRoutesContent = () => {
             <Route path="/register" exact component={Authorization}/>
             <Route path="/playground" exact component={PlaygroundsList}/>
             <Route path="/addplayground" exact component={AddPlaygroundForm}/>
-            <Route path="/team" exact component={Team}/>
+            <Route path="/team" exact component={Teams}/>
             <Route path="/adminevent" exact component={AdminEvent}/>
             <Route path="/players" exact component={Players}/>
             <Redirect to="/home"/>

@@ -1,23 +1,18 @@
 import React from "react";
 import t from "./team-list.module.css";
+import {TeamDataType} from '../../redux/team-page';
 
-const TeamItem:React.FC<TeamItemPropsType> = ({teamName, teamId, selectEnemyTeam}) => {
+interface TeamItemType {
+    teamData: TeamDataType
+}
 
-    const itemHandler = (teamName: string) => {
-        selectEnemyTeam(teamName)
-    }
+const TeamItem:React.FC<TeamItemType> = ({teamData}) => {
 
     return (
-        <div onClick={() => itemHandler(teamName)} className={t.item}>
-            <div className={t.itemHeader}>{teamName}</div>
+        <div>
+            <span>{teamData.fullName}</span>
         </div>
     )
 }
 
 export default TeamItem;
-
-type TeamItemPropsType = {
-    teamName: string,
-    teamId: string,
-    selectEnemyTeam: (teamName: string) => void
-}

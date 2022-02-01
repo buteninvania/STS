@@ -5,7 +5,15 @@ import {getUserName} from "../../redux/user-data-selector";
 import {authActions} from "../../redux/user-data-page";
 import h from "./header.module.css";
 
-const Header:React.FC<HeaderPropsType> = React.memo(({}) => {
+type HeaderPropsType = {
+
+}
+
+type paramsType = {
+    name: string | undefined
+}
+
+const Header:React.FC<HeaderPropsType> = ({}) => {
 
     const dispatch = useDispatch()
 
@@ -29,14 +37,9 @@ const Header:React.FC<HeaderPropsType> = React.memo(({}) => {
             {(userName !== undefined) ? <button className={h.button} onClick={logoutButtonHandler}>Выйти</button> : <NavLink to="/register">LOGIN</NavLink>}
         </div>
     )
-})
+}
 
 export default Header;
 
-type HeaderPropsType = {
 
-}
 
-type paramsType = {
-    name: string | undefined
-}
