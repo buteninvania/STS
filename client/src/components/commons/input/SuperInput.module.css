@@ -1,0 +1,18 @@
+.superInput {
+    background-color: #2a5a67;
+    display: inline-block;
+}
+
+.superInput input {
+    box-shadow: 1px 1px 4px #ccc;
+    border: 1px solid #ccc;
+    transition: .4s;
+    min-height: 20px;
+    background-color: #a3e8d8;
+    font-size: 16px;
+}
+
+.superInput input:hover {
+    box-shadow: 1px 1px 6px #111;
+    background-color: #deece7;
+}

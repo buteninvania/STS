@@ -1,6 +1,6 @@
 import React from "react";
 import f from "./footer.module.css";
-import {Button} from '../commons/Button';
+import {Button} from '../commons/button/Button';
 
 const Footer = () => {
 

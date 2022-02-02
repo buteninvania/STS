@@ -19,11 +19,11 @@ const TeamList:React.FC<TeamListPropsType> = ({selectTeam, userTeam}) => {
     } else {
         return (
             <div className={t.wrapper}>
-                {teams.filter(item => item.fullName !== userTeam).map((team, index) => <TeamItem teamId={team._id}
+                {/*{teams.filter(item => item.fullName !== userTeam).map((team, index) => <TeamItem teamId={team._id}
                                                       teamName={team.fullName}
                                                       selectEnemyTeam={selectTeam}
                                                       key={index}
-                />)}
+                />)}*/}
             </div>
         )
     }
